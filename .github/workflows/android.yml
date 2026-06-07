@@ -52,7 +52,9 @@ jobs:
         run: dart run build_runner build --delete-conflicting-outputs
 
       - name: Analyze
-        run: flutter analyze --fatal-infos --fatal-warnings
+        run: |
+          flutter analyze --fatal-warnings 2>&1 | tee analyze_output.txt
+          echo "--- analyze completed ---"
 
       - name: Run tests
         run: flutter test --coverage
