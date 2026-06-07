@@ -1,0 +1,101 @@
+# backend.yml — Node.js / TypeScript / Express / Prisma CI pipeline
+# Runs on push / PR to main.
+#   1. install dependencies
+#   2. lint (ESLint)
+#   3. type-check (tsc --noEmit)
+#   4. test (vitest)
+
+name: Backend CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "backend/**"
+      - ".github/workflows/backend.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "backend/**"
+      - ".github/workflows/backend.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: backend-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build, Lint, Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: mfs
+          POSTGRES_PASSWORD: mfs_ci_pass
+          POSTGRES_DB: mfs_unified_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U mfs -d mfs_unified_test"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd="redis-cli ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      DATABASE_URL: postgresql://mfs:mfs_ci_pass@localhost:5432/mfs_unified_test?schema=public
+      REDIS_URL: redis://localhost:6379
+      NODE_ENV: test
+      JWT_ACCESS_SECRET: ci-access-secret-not-for-prod
+      JWT_REFRESH_SECRET: ci-refresh-secret-not-for-prod
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+
+      - name: Apply migrations to test DB
+        run: npx prisma migrate deploy
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Test
+        run: npm run test -- --coverage
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-coverage
+          path: backend/coverage/
+          retention-days: 7

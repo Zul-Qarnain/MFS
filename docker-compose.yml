@@ -1,0 +1,68 @@
+# docker-compose.yml — MFS Unified local dev environment
+# Starts: PostgreSQL 16, Redis 7, and the Node.js/Express backend.
+#
+# Usage:
+#   cp .env.example .env
+#   docker compose up --build
+
+name: mfs-unified
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: mfs-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-mfs}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mfs_dev_pass}
+      POSTGRES_DB: ${POSTGRES_DB:-mfs_unified}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-mfs} -d ${POSTGRES_DB:-mfs_unified}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: mfs-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mfs-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-mfs}:${POSTGRES_PASSWORD:-mfs_dev_pass}@postgres:5432/${POSTGRES_DB:-mfs_unified}?schema=public
+      REDIS_URL: redis://redis:6379
+    ports:
+      - "${PORT:-4000}:${PORT:-4000}"
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/prisma:/app/prisma
+    command: ["sh", "-c", "npx prisma migrate deploy && npm run dev"]
+
+volumes:
+  postgres_data:
+  redis_data:

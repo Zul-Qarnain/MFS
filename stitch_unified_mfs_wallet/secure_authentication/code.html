@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>MFS Unified - Confirm Payment</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .auth-pulse {
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            50% { transform: scale(1.05); opacity: 0.2; }
+            100% { transform: scale(0.95); opacity: 0.5; }
+        }
+        .pin-dot {
+            transition: all 0.2s ease-in-out;
+        }
+        .pin-dot.active {
+            @apply bg-primary scale-125;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-container": "#64003e",
+                      "primary": "#004ac6",
+                      "tertiary-fixed-dim": "#ffb693",
+                      "on-tertiary-fixed-variant": "#7a3000",
+                      "tertiary-fixed": "#ffdbcb",
+                      "surface-bright": "#faf8ff",
+                      "on-secondary": "#ffffff",
+                      "inverse-on-surface": "#eef0ff",
+                      "on-tertiary-fixed": "#341000",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-high": "#e2e7ff",
+                      "on-background": "#131b2e",
+                      "on-primary-container": "#eeefff",
+                      "surface-container": "#eaedff",
+                      "surface-tint": "#0053db",
+                      "secondary": "#b21474",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "tertiary-container": "#b74c00",
+                      "outline-variant": "#c3c6d7",
+                      "on-secondary-fixed": "#3d0024",
+                      "surface-container-low": "#f2f3ff",
+                      "surface": "#faf8ff",
+                      "on-primary-fixed": "#00174b",
+                      "inverse-surface": "#283044",
+                      "surface-container-highest": "#dae2fd",
+                      "background": "#faf8ff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface-variant": "#434655",
+                      "on-error-container": "#93000a",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "primary-container": "#2563eb",
+                      "on-surface": "#131b2e",
+                      "tertiary": "#903a00",
+                      "on-error": "#ffffff",
+                      "secondary-fixed": "#ffd8e6",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#8b0059",
+                      "secondary-fixed-dim": "#ffafd1",
+                      "on-primary": "#ffffff",
+                      "surface-variant": "#dae2fd",
+                      "outline": "#737686"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "xl": "32px",
+                      "margin-mobile": "20px",
+                      "base": "4px",
+                      "sm": "8px",
+                      "md": "16px",
+                      "xs": "4px",
+                      "gutter-mobile": "12px"
+              },
+              "fontFamily": {
+                      "headline-md-mobile": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "title-lg": ["Inter"],
+                      "label-md": ["Geist"],
+                      "amount-display": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "amount-display": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+                      "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col font-body-lg">
+<!-- Top AppBar (Injected from Shared Components, but filtered for Auth flow - Hidden per 'Task-Focused' suppression rule) -->
+<!-- However, the prompt asks for a "Confirm Payment" headline, which acts as the focused header -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile h-14 bg-surface/80 backdrop-blur-md">
+<button aria-label="Cancel" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-on-surface">close</span>
+</button>
+<h1 class="font-title-lg text-title-lg text-on-surface">Confirm Payment</h1>
+<div class="w-10"></div> <!-- Spacer for balance -->
+</header>
+<main class="flex-1 flex flex-col px-margin-mobile pt-24 pb-12">
+<!-- Recipient Summary Card -->
+<div class="bg-surface-container-low rounded-xl p-lg shadow-[0px_12px_32px_rgba(0,0,0,0.05)] border border-outline-variant/30 mb-xl animate-in fade-in slide-in-from-bottom-4 duration-700">
+<div class="flex items-center gap-md">
+<div class="relative">
+<img alt="Rahat" class="w-16 h-16 rounded-full border-2 border-primary-container" data-alt="A professional studio portrait of a young South Asian man with a friendly expression, set against a clean, minimalist blue gradient background. The lighting is soft and even, typical of high-end corporate fintech applications. The visual style is modern and clean, aligning with a premium neo-banking user experience and professional financial service aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgx167fy7nZH2zmw-gfAo6m3NqnTha6w_8I9TA_Lw3wN8QGFEmfS2lFb0_v8kcVSus3FTewK7R_Z9Lgnwvfoh4Fp1ffXAdExuOe67oSt0jhH-4LtPBBamLhVxbk7GLhPk9bngGFKs9TwCm3kw0mK33_-VLuEs1anmbEWoQRgv5TyAtnvsRfr7WMl4chpBT-O5LsnMPSFIhR_4HrUMBF96taq_a3HupWGQNwscgtfp_Jh_GFQOXqtPeqysAB7k_UbZyH6BOoyDLIouI"/>
+<div class="absolute -bottom-1 -right-1 bg-primary text-white p-1 rounded-full border-2 border-white">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Sending to</p>
+<h2 class="font-headline-md-mobile text-headline-md-mobile text-on-surface">Rahat</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">+880 1712-345678</p>
+</div>
+</div>
+<div class="mt-md pt-md border-t border-outline-variant/20 flex justify-between items-end">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Amount</p>
+<p class="font-amount-display text-amount-display text-on-surface">৳1,500</p>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface-variant">Fee</p>
+<p class="font-body-lg text-body-lg text-on-surface">৳0.00</p>
+</div>
+</div>
+</div>
+<!-- Biometric Authentication Section -->
+<div class="flex-1 flex flex-col items-center justify-center py-xl">
+<div class="relative mb-lg">
+<!-- Pulse Effect -->
+<div class="absolute inset-0 bg-primary/10 rounded-full auth-pulse scale-150"></div>
+<div class="relative w-24 h-24 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container shadow-lg">
+<span class="material-symbols-outlined text-[48px]" id="auth-icon">fingerprint</span>
+</div>
+</div>
+<div class="text-center mb-xl">
+<p class="font-title-lg text-title-lg text-primary animate-pulse" id="auth-status">Authenticating...</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Touch the sensor or use PIN</p>
+</div>
+<!-- PIN Input Fallback -->
+<div class="w-full max-w-[280px]">
+<div class="flex justify-between items-center mb-md">
+<span class="h-[1px] flex-1 bg-outline-variant/30"></span>
+<span class="px-md font-label-md text-label-md text-on-surface-variant uppercase">or enter pin</span>
+<span class="h-[1px] flex-1 bg-outline-variant/30"></span>
+</div>
+<div class="flex justify-center gap-md mb-xl" id="pin-container">
+<div class="pin-dot w-4 h-4 rounded-full border-2 border-outline-variant"></div>
+<div class="pin-dot w-4 h-4 rounded-full border-2 border-outline-variant"></div>
+<div class="pin-dot w-4 h-4 rounded-full border-2 border-outline-variant"></div>
+<div class="pin-dot w-4 h-4 rounded-full border-2 border-outline-variant"></div>
+<div class="pin-dot w-4 h-4 rounded-full border-2 border-outline-variant"></div>
+</div>
+</div>
+</div>
+<!-- Action Button -->
+<div class="mt-auto">
+<button class="w-full h-14 bg-primary text-on-primary font-title-lg text-title-lg rounded-xl shadow-lg active:scale-95 duration-150 transition-all flex items-center justify-center gap-2 group" id="pay-now-btn">
+<span>Pay Now</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<p class="text-center font-label-md text-label-md text-on-surface-variant mt-md flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">shield_lock</span>
+                Bank-grade 256-bit secure transaction
+            </p>
+</div>
+</main>
+<!-- Simple PIN Pad (Overlay/Bottom Sheet style for Fallback) -->
+<div class="hidden fixed bottom-0 left-0 w-full bg-surface-container-highest p-margin-mobile rounded-t-3xl shadow-2xl transition-transform duration-300 transform translate-y-full border-t border-outline-variant/20" id="numpad">
+<div class="w-12 h-1.5 bg-outline-variant/50 rounded-full mx-auto mb-lg"></div>
+<div class="grid grid-cols-3 gap-4">
+<button class="numpad-key h-16 rounded-xl bg-surface-container-low font-title-lg text-title-lg flex items-center justify-center active:bg-primary-container/20">1</button>
+<button class="numpad-key h-16 rounded-xl bg-surface-container-low font-title-lg text-title-lg flex items-center justify-center active:bg-primary-container/20">2</button>
+<button class="numpad-key h-16 rounded-xl bg-surface-container-low font-title-lg text-title-lg flex items-center justify-center active:bg-primary-container/20">3</button>
+<button class="numpad-key h-16 rounded-xl bg-surface-container-low font-title-lg text-title-lg flex items-center justify-center active:bg-primary-container/20">4</button>
+<button class="numpad-key h-16 rounded-xl bg-surface-container-low font-title-lg text-title-lg flex items-center justify-center active:bg-primary-container/20">5</button>
+<button class="numpad-key h-16 rounded-xl bg-surface-container-low font-title-lg text-title-lg flex items-center justify-center active:bg-primary-container/20">6</button>
+<button class="numpad-key h-16 rounded-xl bg-surface-container-low font-title-lg text-title-lg flex items-center justify-center active:bg-primary-container/20">7</button>
+<button class="numpad-key h-16 rounded-xl bg-surface-container-low font-title-lg text-title-lg flex items-center justify-center active:bg-primary-container/20">8</button>
+<button class="numpad-key h-16 rounded-xl bg-surface-container-low font-title-lg text-title-lg flex items-center justify-center active:bg-primary-container/20">9</button>
+<button class="h-16 flex items-center justify-center"><span class="material-symbols-outlined">face</span></button>
+<button class="numpad-key h-16 rounded-xl bg-surface-container-low font-title-lg text-title-lg flex items-center justify-center active:bg-primary-container/20">0</button>
+<button class="h-16 flex items-center justify-center text-error" id="backspace"><span class="material-symbols-outlined">backspace</span></button>
+</div>
+</div>
+<script>
+        // Micro-interactions and simulation
+        const dots = document.querySelectorAll('.pin-dot');
+        const numpadKeys = document.querySelectorAll('.numpad-key');
+        const backspace = document.getElementById('backspace');
+        const numpad = document.getElementById('numpad');
+        const pinContainer = document.getElementById('pin-container');
+        const authStatus = document.getElementById('auth-status');
+        const authIcon = document.getElementById('auth-icon');
+        const payBtn = document.getElementById('pay-now-btn');
+        
+        let currentPin = '';
+
+        // Open numpad on clicking dots
+        pinContainer.addEventListener('click', () => {
+            numpad.classList.remove('hidden');
+            setTimeout(() => numpad.classList.remove('translate-y-full'), 10);
+        });
+
+        // PIN logic
+        numpadKeys.forEach(key => {
+            key.addEventListener('click', () => {
+                if (currentPin.length < 5) {
+                    dots[currentPin.length].classList.add('active', 'bg-primary');
+                    currentPin += key.innerText;
+                    
+                    if (currentPin.length === 5) {
+                        simulateSuccess();
+                    }
+                }
+            });
+        });
+
+        backspace.addEventListener('click', () => {
+            if (currentPin.length > 0) {
+                currentPin = currentPin.slice(0, -1);
+                dots[currentPin.length].classList.remove('active', 'bg-primary');
+            }
+        });
+
+        payBtn.addEventListener('click', () => {
+            simulateSuccess();
+        });
+
+        function simulateSuccess() {
+            authStatus.innerText = 'Verifying...';
+            authStatus.classList.remove('text-primary');
+            authStatus.classList.add('text-secondary');
+            
+            setTimeout(() => {
+                authStatus.innerText = 'Authenticated';
+                authStatus.classList.remove('text-secondary', 'animate-pulse');
+                authStatus.classList.add('text-green-600');
+                authIcon.innerText = 'check_circle';
+                authIcon.parentElement.classList.replace('bg-primary-container', 'bg-green-100');
+                authIcon.parentElement.classList.replace('text-on-primary-container', 'text-green-600');
+                
+                payBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Processing...';
+                
+                setTimeout(() => {
+                    payBtn.innerHTML = 'Payment Successful';
+                    payBtn.classList.replace('bg-primary', 'bg-green-600');
+                }, 1500);
+            }, 1000);
+        }
+
+        // Randomly toggle FaceID icon for demonstration
+        setInterval(() => {
+            if (authIcon.innerText !== 'check_circle') {
+                authIcon.innerText = authIcon.innerText === 'fingerprint' ? 'face' : 'fingerprint';
+            }
+        }, 3000);
+    </script>
+</body></html>

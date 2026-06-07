@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Payment Successful - MFS Unified</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        @keyframes scale-in {
+            0% { transform: scale(0); opacity: 0; }
+            60% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes draw-check {
+            0% { stroke-dashoffset: 48; }
+            100% { stroke-dashoffset: 0; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-scale-in { animation: scale-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        .success-checkmark {
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: draw-check 0.6s 0.3s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            pointer-events: none;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#64003e",
+                    "primary": "#004ac6",
+                    "tertiary-fixed-dim": "#ffb693",
+                    "on-tertiary-fixed-variant": "#7a3000",
+                    "tertiary-fixed": "#ffdbcb",
+                    "surface-bright": "#faf8ff",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#eef0ff",
+                    "on-tertiary-fixed": "#341000",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#e2e7ff",
+                    "on-background": "#131b2e",
+                    "on-primary-container": "#eeefff",
+                    "surface-container": "#eaedff",
+                    "surface-tint": "#0053db",
+                    "secondary": "#b21474",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "tertiary-container": "#b74c00",
+                    "outline-variant": "#c3c6d7",
+                    "on-secondary-fixed": "#3d0024",
+                    "surface-container-low": "#f2f3ff",
+                    "surface": "#faf8ff",
+                    "on-primary-fixed": "#00174b",
+                    "inverse-surface": "#283044",
+                    "surface-dim": "#d2d9f4",
+                    "on-tertiary-container": "#ffece5",
+                    "secondary-container": "#fe5ab1",
+                    "inverse-primary": "#b4c5ff",
+                    "primary-fixed": "#dbe1ff",
+                    "surface-container-highest": "#dae2fd",
+                    "background": "#faf8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#434655",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "primary-container": "#2563eb",
+                    "on-surface": "#131b2e",
+                    "tertiary": "#903a00",
+                    "on-error": "#ffffff",
+                    "secondary-fixed": "#ffd8e6",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#8b0059",
+                    "secondary-fixed-dim": "#ffafd1",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#dae2fd",
+                    "outline": "#737686"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "xl": "32px",
+                    "margin-mobile": "20px",
+                    "base": "4px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "xs": "4px",
+                    "gutter-mobile": "12px"
+            },
+            "fontFamily": {
+                    "headline-md-mobile": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "label-md": ["Geist"],
+                    "amount-display": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "amount-display": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col items-center overflow-x-hidden">
+<!-- Top Navigation Anchor (Suppressed for Success Screen per Rule) -->
+<!-- Content Canvas -->
+<main class="w-full max-w-[440px] px-margin-mobile pt-16 pb-12 flex flex-col items-center relative">
+<!-- Celebration Background Elements -->
+<div class="absolute inset-0 pointer-events-none" id="confetti-container"></div>
+<!-- Success Animation Hero -->
+<div class="relative mb-lg animate-scale-in">
+<div class="w-24 h-24 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center relative z-10">
+<svg fill="none" height="48" viewbox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
+<path class="success-checkmark" d="M10 24L20 34L38 14" stroke="#16a34a" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"></path>
+</svg>
+</div>
+<!-- Pulsing Rings -->
+<div class="absolute inset-0 rounded-full border-4 border-green-500/20 animate-ping"></div>
+</div>
+<!-- Header Content -->
+<div class="text-center mb-xl">
+<h1 class="font-headline-md-mobile text-headline-md-mobile text-on-surface mb-2">Payment Successful!</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Your transaction has been processed securely.</p>
+</div>
+<!-- Amount Display Card -->
+<div class="w-full bg-primary text-on-primary-container p-lg rounded-xl shadow-[0px_12px_32px_rgba(0,0,0,0.05)] mb-lg text-center relative overflow-hidden">
+<!-- Glassy background detail -->
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
+<div class="absolute -left-4 -bottom-4 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
+<span class="font-label-md text-label-md opacity-80 mb-1 block">TOTAL AMOUNT PAID</span>
+<div class="font-amount-display text-amount-display">৳1,500.00</div>
+</div>
+<!-- Detailed Transaction Card -->
+<div class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-[24px] p-lg shadow-sm mb-xl">
+<div class="space-y-md">
+<!-- Recipient -->
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Recipient</span>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img alt="Recipient" data-alt="A clean, professional profile avatar of a smiling Bengali businessman in a smart casual white shirt against a soft, out-of-focus urban background. The lighting is warm and natural, suggesting a midday setting. The image is circular with a high-fidelity neo-banking aesthetic and minimal shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9eGUzahSr22ySFOztMbNpo6pYICpkLZO2WOyWeLrAlPnBbIQyLH4YoPo_qmzGCKOBOBChct-F3DoYcQWEi04kE40Klmfg3iPWb1J6Ok5Vuhi9lUY_UaPs2hGqBZ1XDx5Qm8J6zO95aRnrq2989qlZOmAbGLL6RgI5Li480c5BD0NEy5vC5ml_y15LyB7aXzU8vqytU8cL0QRVjVfe7QnAhSAZ0E4m7qHThIaQCWWlDInxiaYLKowOR8HZ3iXh-OkadiDNl8NbnT0L"/>
+</div>
+<span class="font-body-lg text-body-lg font-semibold">Anik Rahman</span>
+</div>
+</div>
+<div class="h-px bg-outline-variant/20 w-full"></div>
+<!-- Provider -->
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Provider</span>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-[#E2136E] flex items-center justify-center">
+<span class="text-[10px] text-white font-bold">bKash</span>
+</div>
+<span class="font-body-lg text-body-lg">bKash Personal</span>
+</div>
+</div>
+<div class="h-px bg-outline-variant/20 w-full"></div>
+<!-- Transaction ID -->
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Transaction ID</span>
+<div class="flex items-center gap-1">
+<span class="font-body-lg text-body-lg font-mono">8JK2L9N5XW</span>
+<button class="material-symbols-outlined text-primary text-[18px]" onclick="copyId()">content_copy</button>
+</div>
+</div>
+<div class="h-px bg-outline-variant/20 w-full"></div>
+<!-- Date/Time -->
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Date &amp; Time</span>
+<span class="font-body-lg text-body-lg">Oct 24, 2023 • 02:45 PM</span>
+</div>
+</div>
+</div>
+<!-- Support Card (Asymmetric Layout element) -->
+<div class="w-full bg-surface-container flex items-center gap-md p-md rounded-xl mb-xl border-l-4 border-primary">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<div class="flex-1">
+<p class="font-body-sm text-body-sm font-semibold">Secured by MFS Unified</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Encrypted payment verification</p>
+</div>
+</div>
+<!-- Sticky Bottom Actions -->
+<div class="w-full grid grid-cols-2 gap-md mt-auto">
+<button class="h-14 rounded-full border-2 border-outline text-on-surface font-title-lg text-title-lg flex items-center justify-center gap-2 hover:bg-surface-variant active:scale-95 transition-all duration-200">
+<span class="material-symbols-outlined">share</span>
+                Share
+            </button>
+<button class="h-14 rounded-full bg-primary text-on-primary font-title-lg text-title-lg flex items-center justify-center hover:opacity-90 active:scale-95 transition-all duration-200 shadow-lg shadow-primary/20">
+                Done
+            </button>
+</div>
+</main>
+<script>
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#004ac6', '#b21474', '#16a34a', '#fbbf24', '#2563eb'];
+            
+            for (let i = 0; i < 40; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-10px';
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                const duration = 2 + Math.random() * 3;
+                const delay = Math.random() * 0.5;
+                
+                confetti.style.transition = `all ${duration}s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}s`;
+                
+                container.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.style.top = '110%';
+                    confetti.style.left = (parseFloat(confetti.style.left) + (Math.random() * 20 - 10)) + '%';
+                    confetti.style.transform = `rotate(${Math.random() * 1000}deg)`;
+                }, 100);
+                
+                setTimeout(() => confetti.remove(), (duration + delay) * 1000);
+            }
+        }
+
+        function copyId() {
+            // Simple visual feedback for copy
+            const icon = event.target;
+            icon.innerText = 'check';
+            setTimeout(() => icon.innerText = 'content_copy', 2000);
+        }
+
+        // Initialize confetti on load
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(createConfetti, 500);
+        });
+    </script>
+</body></html>

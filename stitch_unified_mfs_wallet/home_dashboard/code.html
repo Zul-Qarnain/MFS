@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        body {
+            -webkit-tap-highlight-color: transparent;
+            background-color: #faf8ff;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-container": "#64003e",
+                      "primary": "#004ac6",
+                      "tertiary-fixed-dim": "#ffb693",
+                      "on-tertiary-fixed-variant": "#7a3000",
+                      "tertiary-fixed": "#ffdbcb",
+                      "surface-bright": "#faf8ff",
+                      "on-secondary": "#ffffff",
+                      "inverse-on-surface": "#eef0ff",
+                      "on-tertiary-fixed": "#341000",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-high": "#e2e7ff",
+                      "on-background": "#131b2e",
+                      "on-primary-container": "#eeefff",
+                      "surface-container": "#eaedff",
+                      "surface-tint": "#0053db",
+                      "secondary": "#b21474",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "tertiary-container": "#b74c00",
+                      "outline-variant": "#c3c6d7",
+                      "on-secondary-fixed": "#3d0024",
+                      "surface-container-low": "#f2f3ff",
+                      "surface": "#faf8ff",
+                      "on-primary-fixed": "#00174b",
+                      "inverse-surface": "#283044",
+                      "surface-container-highest": "#dae2fd",
+                      "background": "#faf8ff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface-variant": "#434655",
+                      "on-error-container": "#93000a",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "primary-container": "#2563eb",
+                      "on-surface": "#131b2e",
+                      "tertiary": "#903a00",
+                      "on-error": "#ffffff",
+                      "secondary-fixed": "#ffd8e6",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#8b0059",
+                      "secondary-fixed-dim": "#ffafd1",
+                      "on-primary": "#ffffff",
+                      "surface-variant": "#dae2fd",
+                      "outline": "#737686"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "xl": "32px",
+                      "margin-mobile": "20px",
+                      "base": "4px",
+                      "sm": "8px",
+                      "md": "16px",
+                      "xs": "4px",
+                      "gutter-mobile": "12px"
+              },
+              "fontFamily": {
+                      "headline-md-mobile": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "title-lg": ["Inter"],
+                      "label-md": ["Geist"],
+                      "amount-display": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "amount-display": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+                      "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-32">
+<!-- Top App Bar (Shared Component) -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile h-14 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-md shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User Profile" data-alt="A professional close-up studio portrait of a friendly young executive with a warm smile, set against a clean minimalist office background. The lighting is soft and natural, emphasizing a high-trust fintech atmosphere with gentle blue and white tones. The overall aesthetic is clean, modern, and corporate, reflecting reliability and personal success." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7mTRLUd8vf_oXSXjvL8ooiCta8VRFVxMYuVx-PDpzO801Tm1AQ3NCP9P92eLeFHvRCqva8kaO-CayoxewgpRW3Tku8LldZRZpcxtxLScNmK2pVbDCQ8Hi78IfboAvlsP27qQLPLHDntpdCtz57mIU3AWRu2j-5fuZzvyhGgqPOrir1n2OsaYuHXPuY3mZbW4jzZafxDl3AJ-bbiWDqtFLzAfzDZhOlqQLTIIajixbYTO5dG-FCW8jFo8611BWo9nDfwAJFeeBgOyL"/>
+</div>
+<span class="font-display-lg text-display-lg font-bold text-primary text-[20px] leading-none">MFS Unified</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-container/20 transition-colors active:scale-95 duration-150 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</nav>
+<main class="mt-20 px-margin-mobile flex flex-col gap-8">
+<!-- Greeting & Balance Section -->
+<header class="flex flex-col gap-2">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Good Morning,</span>
+<h1 class="font-headline-md-mobile text-headline-md-mobile text-on-surface">Zayan Ahmed</h1>
+</div>
+<!-- Hero Balance Card -->
+<div class="relative overflow-hidden bg-gradient-to-br from-primary to-[#002d7a] rounded-[24px] p-6 text-on-primary shadow-lg mt-2">
+<div class="flex justify-between items-start relative z-10">
+<div class="flex flex-col gap-1">
+<span class="font-label-md text-label-md opacity-80 uppercase tracking-widest">Total Balance</span>
+<div class="flex items-baseline gap-1">
+<span class="font-label-md text-label-md">৳</span>
+<h2 class="font-amount-display text-amount-display">48,250.00</h2>
+</div>
+</div>
+<button class="bg-white/10 backdrop-blur-md rounded-full px-4 py-2 text-label-md font-label-md flex items-center gap-2 hover:bg-white/20 transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="visibility">visibility</span>
+<span>Show</span>
+</button>
+</div>
+<!-- Abstract Card Decoration -->
+<div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
+<div class="absolute top-0 right-0 p-4 opacity-20">
+<span class="material-symbols-outlined text-[64px]" data-icon="account_balance_wallet" data-weight="fill" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</div>
+</div>
+</header>
+<!-- Provider Selector -->
+<section class="flex flex-col gap-4">
+<h3 class="font-title-lg text-title-lg">MFS Providers</h3>
+<div class="flex gap-4 overflow-x-auto hide-scrollbar pb-2">
+<!-- bKash -->
+<button class="flex flex-col items-center gap-2 min-w-[72px] group">
+<div class="w-16 h-16 rounded-full bg-white shadow-sm border-2 border-primary flex items-center justify-center p-2 group-active:scale-95 transition-all">
+<div class="w-full h-full rounded-full bg-[#E2136E] flex items-center justify-center text-white font-bold text-[10px]">bKash</div>
+</div>
+<span class="font-label-md text-label-md text-primary font-bold">bKash</span>
+</button>
+<!-- Nagad -->
+<button class="flex flex-col items-center gap-2 min-w-[72px] group opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
+<div class="w-16 h-16 rounded-full bg-white shadow-sm border border-outline-variant flex items-center justify-center p-2 group-active:scale-95 transition-all">
+<div class="w-full h-full rounded-full bg-[#F57B20] flex items-center justify-center text-white font-bold text-[10px]">Nagad</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Nagad</span>
+</button>
+<!-- Rocket -->
+<button class="flex flex-col items-center gap-2 min-w-[72px] group opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
+<div class="w-16 h-16 rounded-full bg-white shadow-sm border border-outline-variant flex items-center justify-center p-2 group-active:scale-95 transition-all">
+<div class="w-full h-full rounded-full bg-[#8C3494] flex items-center justify-center text-white font-bold text-[10px]">Rocket</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Rocket</span>
+</button>
+<!-- Add New -->
+<button class="flex flex-col items-center gap-2 min-w-[72px] group">
+<div class="w-16 h-16 rounded-full border-2 border-dashed border-outline flex items-center justify-center text-outline group-active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Link</span>
+</button>
+</div>
+</section>
+<!-- Main Action Area -->
+<section class="grid grid-cols-1 gap-4">
+<button class="h-16 w-full bg-primary-container text-on-primary-container rounded-xl flex items-center justify-center gap-3 shadow-md hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined text-[28px]" data-icon="qr_code_scanner" data-weight="fill" style="font-variation-settings: 'FILL' 1;">qr_code_scanner</span>
+<span class="font-title-lg text-title-lg">Scan QR Code</span>
+</button>
+<button class="h-14 w-full bg-surface-container border border-outline-variant text-on-surface rounded-xl flex items-center justify-center gap-3 hover:bg-surface-container-high transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="contacts">contacts</span>
+<span class="font-body-lg text-body-lg">Select Contact</span>
+</button>
+</section>
+<!-- Favorites Section -->
+<section class="flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg">Quick Send</h3>
+<button class="text-primary font-label-md text-label-md">View All</button>
+</div>
+<div class="flex gap-6 overflow-x-auto hide-scrollbar pb-2">
+<!-- Contact 1 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-14 h-14 rounded-full border-2 border-white shadow-sm ring-2 ring-primary/10 overflow-hidden">
+<img alt="Contact 1" data-alt="A portrait of a smiling young woman with a vibrant, modern professional look. She is set against a soft pastel blue studio backdrop. The lighting is bright and airy, perfect for a high-end fintech application's contact list. The colors are soft and sophisticated, conveying a sense of friendly reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuxkvVlVxbGWCgiUitSBhy0-UUkJUC2PZk6UUeK6vOBV-mtI8uDIWomBKREQmTR4T8w7D_3QNVxQioruCGef5ZblFVvzguQY_V7FOk-7SLw9nQZ-3NRsQtJCE9wG6qeASLNMrhNTOc-xkGmCzyUf38VkOShURviIaeuen0tuES8xqw11z53viT_T4T8kMUxBxbw3gbMbyFkbHa9PK0ISpon1BtZTMHhhgCjMJCLB5cwGze8WkJJ4toV6zkqzxe-S0RuIZYx2MBfjRJ"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Mom</span>
+</div>
+<!-- Contact 2 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-14 h-14 rounded-full border-2 border-white shadow-sm ring-2 ring-primary/10 overflow-hidden">
+<img alt="Contact 2" data-alt="A studio portrait of a young man with a friendly, casual professional appearance. He is standing against a clean light-grey background. High-key lighting highlights his approachable expression. The visual style is minimal and modern, fitting perfectly into a premium financial app's dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_DPoPAIUV63stMb7ZnRif6n0sTNmns6iA67Q-P_q3YFNvyckEzFYZv68boKlCMxgDqy98MeD73PNH_O-aDn0giLhphDBlpuSOI0KdmMcYIh7LPlMCkoD6B11R0qB9NsI0GfCXdn6bJQljemr06tAXitRc3ZMbgrBR-5848PduakrkcKUy2izgEIR1i8IUE9pBkdpnBCkd2MYf2old8pdT-UEffd1W6S0qQfvpPy1BhHjERBTKYQu2Ctkca7Z80RCQOZUoO-iiLHEX"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Brother</span>
+</div>
+<!-- Contact 3 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-14 h-14 rounded-full border-2 border-white shadow-sm ring-2 ring-primary/10 overflow-hidden">
+<img alt="Contact 3" data-alt="A professional headshot of a confident businesswoman smiling warmly. The setting is a bright, contemporary workspace with soft, blurred light in the background. The aesthetic is clean and corporate, utilizing a color palette of white, light grey, and subtle navy blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJqWfmjBKdDfBUc4pxY-iEB8oNEY6Aai_FCioBUAFDW7i8jYdxKLR8OqW2mNmVoyBfSSSzITyBebJCPRYtGZKrbw84f4Xs7LAzqGixYjNL0X2bLQbY0glmRebvCGNGAWQLeisF1tgdsPYVC7z2mo8k6giLGKyghtkaXVBv6BcCOki9H2SN4Xhwt-Qh1SypSPN_EBTftdnATeQu_e9QqkfWGFcw44pBRnDLmSy-giMq-sjyrw0zL_fG2MRryOwlscmEMRTT_AFvwaGt"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Boss</span>
+</div>
+<!-- Contact 4 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-14 h-14 rounded-full border-2 border-white shadow-sm ring-2 ring-primary/10 overflow-hidden">
+<img alt="Contact 4" data-alt="A friendly portrait of an older man with silver hair, looking kind and trustworthy. The photo is taken in a well-lit studio environment with a neutral white background. The lighting is professional and soft, evoking a sense of stability and community within a banking context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUCLvGIdIwi2T3fXKUjNNDWnGiC8if7RV8bfSo14xgsay2pqkryHuljNjRPaI1m2GSOuCpn3yJ-8wKgQqGztiGcQ4aSybtiRUgomhuj6Gf_lfiNNgOhxAdZhA9LMjDOSr_CuQjP4JZsAkMx9JsqsRxGPDdv_rfn1GT5NIKEMHpFKDLoe3__dEpTTWiIVtlUD8l2IBKsI8nImsCeMUx1VkdY2RZs-T9vViROtf9OykCLIto2gXpq8eoCm_YpNxARupeeBQ72eOH876t"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Rashed</span>
+</div>
+<!-- Contact 5 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-14 h-14 rounded-full border-2 border-white shadow-sm ring-2 ring-primary/10 overflow-hidden">
+<img alt="Contact 5" data-alt="A youthful and energetic portrait of a university student with a bright smile. The lighting is natural and vibrant, suggesting an outdoor campus setting with soft greenery blurred in the background. The style is modern, relatable, and designed to appeal to younger fintech users." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCMYmCXBPRZ2UeoIQ6zBqbAKV4nOr_mMsN73B9CYR6d-3IimNhynMhd2t2lBFRQ4ksURKIhNQqAROa1N0MHia24mgj7wiEEh2T4ita0fnBNAYTTgKacj_-krz6dJzVBLBW6OzIqXujkjdOhpSvfkyY8bYUop1qECKeC-K8gXCu-GIOERBMbfWc6HBSSlWbI_oPFsEkbMIAe4L2VyP7WwaXcFiX3EhzRsTVfHv8VW8CRgfuUuAhR3vIFuzWBSJVw5POYyE2D8OubScS"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Shop</span>
+</div>
+</div>
+</section>
+<!-- Recent Transactions -->
+<section class="flex flex-col gap-4 mb-10">
+<div class="flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg">Recent Transactions</h3>
+<button class="text-primary font-label-md text-label-md">History</button>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Transaction Item 1 -->
+<div class="bg-surface-container-lowest p-4 rounded-[24px] flex items-center justify-between shadow-[0px_12px_32px_rgba(0,0,0,0.03)] hover:shadow-[0px_12px_32px_rgba(0,0,0,0.08)] transition-all cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-2xl bg-[#E2136E]/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[#E2136E]" data-icon="shopping_bag">shopping_bag</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg text-on-surface font-semibold">Bata Shoes Store</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Today, 10:24 AM • bKash</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-title-lg text-title-lg text-on-surface">-৳2,450</span>
+<span class="font-label-md text-label-md text-error">Success</span>
+</div>
+</div>
+<!-- Transaction Item 2 -->
+<div class="bg-surface-container-lowest p-4 rounded-[24px] flex items-center justify-between shadow-[0px_12px_32px_rgba(0,0,0,0.03)] hover:shadow-[0px_12px_32px_rgba(0,0,0,0.08)] transition-all cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="payments">payments</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg text-on-surface font-semibold">Received from Mom</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Yesterday, 08:15 PM • Rocket</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-title-lg text-title-lg text-[#008544]">+৳5,000</span>
+<span class="font-label-md text-label-md text-[#008544]">Completed</span>
+</div>
+</div>
+<!-- Transaction Item 3 -->
+<div class="bg-surface-container-lowest p-4 rounded-[24px] flex items-center justify-between shadow-[0px_12px_32px_rgba(0,0,0,0.03)] hover:shadow-[0px_12px_32px_rgba(0,0,0,0.08)] transition-all cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-2xl bg-[#F57B20]/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[#F57B20]" data-icon="electric_bolt">electric_bolt</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg text-on-surface font-semibold">DESCO Bill</span>
+<span class="font-label-md text-label-md text-on-surface-variant">22 Oct, 11:30 AM • Nagad</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-title-lg text-title-lg text-on-surface">-৳1,820</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Pending</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Shared Component) -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-md shadow-[0px_-4px_16px_rgba(0,0,0,0.05)] rounded-t-xl glass-nav">
+<!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home" data-weight="fill" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<!-- Scan -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+<span class="font-label-md text-label-md">Scan</span>
+</a>
+<!-- Send -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+<span class="font-label-md text-label-md">Send</span>
+</a>
+<!-- History -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-md text-label-md">History</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for balance toggle
+        const balanceBtn = document.querySelector('button .material-symbols-outlined[data-icon="visibility"]').parentElement;
+        const balanceText = document.querySelector('.font-amount-display');
+        let isHidden = false;
+
+        balanceBtn.addEventListener('click', () => {
+            isHidden = !isHidden;
+            if (isHidden) {
+                balanceText.textContent = '••••••••';
+                balanceBtn.querySelector('span:last-child').textContent = 'Hide';
+                balanceBtn.querySelector('.material-symbols-outlined').textContent = 'visibility_off';
+            } else {
+                balanceText.textContent = '48,250.00';
+                balanceBtn.querySelector('span:last-child').textContent = 'Show';
+                balanceBtn.querySelector('.material-symbols-outlined').textContent = 'visibility';
+            }
+        });
+
+        // Provider select interaction
+        const providers = document.querySelectorAll('button.group');
+        providers.forEach(p => {
+            p.addEventListener('click', () => {
+                providers.forEach(other => {
+                    other.classList.add('opacity-60', 'grayscale');
+                    other.querySelector('.w-16').classList.replace('border-primary', 'border-outline-variant');
+                    other.querySelector('.w-16').classList.remove('border-2');
+                    other.querySelector('.w-16').classList.add('border');
+                    other.querySelector('span').classList.replace('text-primary', 'text-on-surface-variant');
+                    other.querySelector('span').classList.remove('font-bold');
+                });
+                p.classList.remove('opacity-60', 'grayscale');
+                p.querySelector('.w-16').classList.replace('border-outline-variant', 'border-primary');
+                p.querySelector('.w-16').classList.replace('border', 'border-2');
+                p.querySelector('span').classList.replace('text-on-surface-variant', 'text-primary');
+                p.querySelector('span').classList.add('font-bold');
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Payment Details - MFS Unified</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#64003e",
+                        "primary": "#004ac6",
+                        "tertiary-fixed-dim": "#ffb693",
+                        "on-tertiary-fixed-variant": "#7a3000",
+                        "tertiary-fixed": "#ffdbcb",
+                        "surface-bright": "#faf8ff",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#eef0ff",
+                        "on-tertiary-fixed": "#341000",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e2e7ff",
+                        "on-background": "#131b2e",
+                        "on-primary-container": "#eeefff",
+                        "surface-container": "#eaedff",
+                        "surface-tint": "#0053db",
+                        "secondary": "#b21474",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "tertiary-container": "#b74c00",
+                        "outline-variant": "#c3c6d7",
+                        "on-secondary-fixed": "#3d0024",
+                        "surface-container-low": "#f2f3ff",
+                        "surface": "#faf8ff",
+                        "on-primary-fixed": "#00174b",
+                        "inverse-surface": "#283044",
+                        "surface-dim": "#d2d9f4",
+                        "on-tertiary-container": "#ffece5",
+                        "secondary-container": "#fe5ab1",
+                        "inverse-primary": "#b4c5ff",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-container-highest": "#dae2fd",
+                        "background": "#faf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#434655",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "primary-container": "#2563eb",
+                        "on-surface": "#131b2e",
+                        "tertiary": "#903a00",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#ffd8e6",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#8b0059",
+                        "secondary-fixed-dim": "#ffafd1",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#dae2fd",
+                        "outline": "#737686"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xl": "32px",
+                        "margin-mobile": "20px",
+                        "base": "4px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "gutter-mobile": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-md-mobile": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "label-md": ["Geist"],
+                        "amount-display": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "amount-display": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { -webkit-tap-highlight-color: transparent; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .numpad-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        .provider-ring {
+            box-shadow: 0 0 0 2px #d1d5db, 0 0 0 4px #ffffff;
+        }
+        .provider-ring-active {
+            box-shadow: 0 0 0 2px #004ac6, 0 0 0 4px #ffffff;
+        }
+        @keyframes subtle-pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.02); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .cursor-blink {
+            animation: subtle-pulse 1s infinite ease-in-out;
+            width: 2px;
+            height: 40px;
+            background-color: #004ac6;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 4px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-lg min-h-screen flex flex-col">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile h-14 bg-surface/80 backdrop-blur-md shadow-sm">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 hover:bg-primary-container/20 transition-colors active:scale-95 duration-150 rounded-full">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-title-lg text-title-lg text-primary">Payment Details</h1>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant bg-surface-container-highest">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional studio portrait of a modern user against a neutral soft-lit background. The subject is a young adult with a friendly expression, reflecting a corporate modern and reliable fintech brand personality. Lighting is high-key and soft, enhancing the clean and minimalist aesthetic of the UI environment. Colors are muted and natural to maintain institutional reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAACbS09BLBzylRt8ZPj7mN8zvX31rnDxdvshtfaizPrP2fdN1Uf0Q2CMMJweINcZ9KC7fST4EKkkEkN5K05ClZnoH-pEKZlvfET-yrYxCOTqcqhhN-X84hIDmQncfQ09eeWAqs9wQPui5lg497A6HoA7_GYxTTilbTRmgTHMjGM4pipG09upm_HfJAKI1kzco6UYUzckfJ-3PG6IG_KA4yYqC4VmaUFODa9J5mRM-QMhKd9-sKquGjobsxXiBjRhybJYn0zyeZ8ARK"/>
+</div>
+</div>
+</header>
+<main class="flex-grow pt-20 pb-8 px-margin-mobile flex flex-col items-center">
+<!-- Recipient Header -->
+<div class="w-full flex flex-col items-center mb-10">
+<div class="relative mb-4">
+<div class="w-24 h-24 rounded-full border-4 border-surface-container shadow-lg overflow-hidden">
+<img alt="Rahat Khan" class="w-full h-full object-cover" data-alt="A clean, high-fidelity profile photo of a man named Rahat Khan for a financial services application. He has a professional and trustworthy appearance, shot with shallow depth of field against a minimalist office background. The image evokes institutional reliability and clarity, consistent with a premium neo-banking aesthetic. Soft, natural daylight illuminates the scene." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_qZmgS_4ZjvRjrO6ayx9NBZQll8qOgL4c-fOfMoEmyO08dmGXOMjws9Ri_Sl8XKxAoW-49aUQnbaK1hFce_ki401POpwveezFd_OKlNsZwkPCV2yVyk521kDdu1OK2FG1MNF_Aj1D1bfBGdd_OCQR7voCHC9hMbH0CrSOPZ2WL5wCIwu0pFPtexRujqslZFciZpj1S38D4W13isbPBTztTwk32Yiby7q22brJckGPRIKrYLxQHT6PC5D92Wzt757oSnbhhCziDjVU"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-white p-1 rounded-full shadow-md">
+<div class="w-8 h-8 rounded-full bg-[#E2136E] flex items-center justify-center">
+<span class="text-[10px] font-bold text-white">bKash</span>
+</div>
+</div>
+</div>
+<h2 class="font-headline-md-mobile text-headline-md-mobile text-on-surface">Rahat Khan</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">01712-345678</p>
+</div>
+<!-- Provider Selection (Subtle Display) -->
+<div class="w-full mb-8">
+<div class="flex items-center justify-between p-4 rounded-xl bg-surface-container-low border border-outline-variant/30">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-[#E2136E] flex items-center justify-center shadow-sm">
+<span class="text-[10px] font-extrabold text-white">bKash</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Sending via</p>
+<p class="font-title-lg text-title-lg text-on-surface">Personal Account</p>
+</div>
+</div>
+<button class="text-primary font-label-md text-label-md hover:underline transition-all">CHANGE</button>
+</div>
+</div>
+<!-- Amount Input Field -->
+<div class="w-full flex flex-col items-center justify-center flex-grow mb-8">
+<p class="font-label-md text-label-md text-on-surface-variant mb-2 uppercase tracking-widest">Enter Amount</p>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-primary opacity-60">৳</span>
+<div class="flex items-center">
+<span class="font-amount-display text-display-lg text-on-surface" id="amount-display">0</span>
+<span class="cursor-blink" id="cursor"></span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-4 opacity-0 transition-opacity duration-300" id="amount-words">Zero Taka Only</p>
+</div>
+<!-- Keypad and Action -->
+<div class="w-full mt-auto">
+<div class="numpad-grid mb-8">
+<button class="h-16 rounded-xl bg-surface-container-highest/40 hover:bg-surface-container-highest transition-colors active:scale-95 duration-100 flex items-center justify-center font-headline-md text-headline-md text-on-surface" onclick="appendNumber('1')">1</button>
+<button class="h-16 rounded-xl bg-surface-container-highest/40 hover:bg-surface-container-highest transition-colors active:scale-95 duration-100 flex items-center justify-center font-headline-md text-headline-md text-on-surface" onclick="appendNumber('2')">2</button>
+<button class="h-16 rounded-xl bg-surface-container-highest/40 hover:bg-surface-container-highest transition-colors active:scale-95 duration-100 flex items-center justify-center font-headline-md text-headline-md text-on-surface" onclick="appendNumber('3')">3</button>
+<button class="h-16 rounded-xl bg-surface-container-highest/40 hover:bg-surface-container-highest transition-colors active:scale-95 duration-100 flex items-center justify-center font-headline-md text-headline-md text-on-surface" onclick="appendNumber('4')">4</button>
+<button class="h-16 rounded-xl bg-surface-container-highest/40 hover:bg-surface-container-highest transition-colors active:scale-95 duration-100 flex items-center justify-center font-headline-md text-headline-md text-on-surface" onclick="appendNumber('5')">5</button>
+<button class="h-16 rounded-xl bg-surface-container-highest/40 hover:bg-surface-container-highest transition-colors active:scale-95 duration-100 flex items-center justify-center font-headline-md text-headline-md text-on-surface" onclick="appendNumber('6')">6</button>
+<button class="h-16 rounded-xl bg-surface-container-highest/40 hover:bg-surface-container-highest transition-colors active:scale-95 duration-100 flex items-center justify-center font-headline-md text-headline-md text-on-surface" onclick="appendNumber('7')">7</button>
+<button class="h-16 rounded-xl bg-surface-container-highest/40 hover:bg-surface-container-highest transition-colors active:scale-95 duration-100 flex items-center justify-center font-headline-md text-headline-md text-on-surface" onclick="appendNumber('8')">8</button>
+<button class="h-16 rounded-xl bg-surface-container-highest/40 hover:bg-surface-container-highest transition-colors active:scale-95 duration-100 flex items-center justify-center font-headline-md text-headline-md text-on-surface" onclick="appendNumber('9')">9</button>
+<button class="h-16 rounded-xl bg-transparent flex items-center justify-center font-headline-md text-headline-md text-on-surface" onclick="appendNumber('.')">.</button>
+<button class="h-16 rounded-xl bg-surface-container-highest/40 hover:bg-surface-container-highest transition-colors active:scale-95 duration-100 flex items-center justify-center font-headline-md text-headline-md text-on-surface" onclick="appendNumber('0')">0</button>
+<button class="h-16 rounded-xl bg-transparent flex items-center justify-center text-on-surface-variant hover:text-error transition-colors active:scale-95 duration-100" onclick="deleteNumber()">
+<span class="material-symbols-outlined">backspace</span>
+</button>
+</div>
+<button class="w-full h-14 bg-primary text-on-primary rounded-full font-title-lg text-title-lg shadow-lg hover:shadow-xl hover:bg-primary/90 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2">
+                Continue
+                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</main>
+<script>
+        let currentAmount = "0";
+        const amountDisplay = document.getElementById('amount-display');
+        const amountWords = document.getElementById('amount-words');
+
+        function updateDisplay() {
+            amountDisplay.innerText = currentAmount === "" ? "0" : currentAmount;
+            
+            if (currentAmount === "" || currentAmount === "0") {
+                amountWords.classList.add('opacity-0');
+            } else {
+                amountWords.classList.remove('opacity-0');
+                amountWords.innerText = numberToWords(currentAmount) + " Taka Only";
+            }
+        }
+
+        function appendNumber(num) {
+            if (currentAmount === "0" && num !== ".") {
+                currentAmount = num;
+            } else {
+                if (num === "." && currentAmount.includes(".")) return;
+                if (currentAmount.length < 10) {
+                    currentAmount += num;
+                }
+            }
+            updateDisplay();
+        }
+
+        function deleteNumber() {
+            if (currentAmount.length > 1) {
+                currentAmount = currentAmount.slice(0, -1);
+            } else {
+                currentAmount = "0";
+            }
+            updateDisplay();
+        }
+
+        function numberToWords(n) {
+            // Simple logic for illustration
+            const num = parseFloat(n);
+            if (isNaN(num)) return "";
+            return num.toLocaleString('en-IN') + "";
+        }
+
+        // Keydown support
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '0' && e.key <= '9') appendNumber(e.key);
+            if (e.key === '.') appendNumber('.');
+            if (e.key === 'Backspace') deleteNumber();
+        });
+    </script>
+</body></html>

@@ -1,0 +1,112 @@
+# android.yml — Flutter (Android only) CI pipeline
+# Runs on push / PR to main.
+#   1. flutter analyze
+#   2. flutter test
+#   3. flutter build apk --release
+#   4. uploads the release APK as an artefact
+
+name: Android CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "mobile/**"
+      - ".github/workflows/android.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "mobile/**"
+      - ".github/workflows/android.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze-and-test:
+    name: Analyze & Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./mobile
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.24.x"
+          channel: stable
+          cache: true
+
+      - name: Flutter doctor
+        run: flutter doctor -v
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run build_runner (freezed / isar / json_serializable)
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Analyze
+        run: flutter analyze --fatal-infos --fatal-warnings
+
+      - name: Run tests
+        run: flutter test --coverage
+
+      - name: Upload test coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-coverage
+          path: mobile/coverage/
+          retention-days: 7
+
+  build-apk:
+    name: Build Release APK
+    runs-on: ubuntu-latest
+    needs: analyze-and-test
+    defaults:
+      run:
+        working-directory: ./mobile
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.24.x"
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run build_runner
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Build release APK
+        run: flutter build apk --release --target-platform android-arm64
+
+      - name: Verify APK exists
+        run: |
+          test -f build/app/outputs/flutter-apk/app-release.apk \
+            || (echo "APK not found" && exit 1)
+          ls -lh build/app/outputs/flutter-apk/
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: mfs-unified-release-apk
+          path: mobile/build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30

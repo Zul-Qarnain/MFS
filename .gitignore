@@ -1,0 +1,140 @@
+# =============================================================================
+# MFS Unified — .gitignore
+# Covers Flutter (Android), Node.js/TypeScript backend, IDEs, OS artefacts,
+# and Docker build caches.
+# =============================================================================
+
+# ----------------------------------------------------------------------------
+# OS / shell artefacts
+# ----------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ----------------------------------------------------------------------------
+# IDEs and editors
+# ----------------------------------------------------------------------------
+.vscode/
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.iml
+*.iws
+*.ipr
+*.sublime-workspace
+*.sublime-project
+.project
+.settings/
+.classpath
+.history/
+
+# ----------------------------------------------------------------------------
+# Environment / secrets
+# ----------------------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets/
+credentials/
+
+# ----------------------------------------------------------------------------
+# Node / TypeScript (backend/)
+# ----------------------------------------------------------------------------
+node_modules/
+backend/node_modules/
+backend/dist/
+backend/build/
+backend/coverage/
+backend/.nyc_output/
+backend/*.log
+backend/npm-debug.log*
+backend/yarn-debug.log*
+backend/yarn-error.log*
+backend/.eslintcache
+backend/.tsbuildinfo
+*.tsbuildinfo
+
+# ----------------------------------------------------------------------------
+# Flutter (mobile/)
+# ----------------------------------------------------------------------------
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.packages
+mobile/.pub-cache/
+mobile/.pub/
+mobile/build/
+mobile/.idea/
+mobile/ios/
+mobile/linux/
+mobile/macos/
+mobile/web/
+mobile/windows/
+mobile/**/gpub_*
+mobile/**/.generated.*
+mobile/*.jks
+mobile/*.p8
+mobile/*.p12
+mobile/*.key
+mobile/*.mobileprovision
+mobile/*.orig.*
+mobile/**/app-debug.apk
+mobile/**/app-release.apk
+mobile/**/app.aab
+mobile/.android/
+mobile/.ios/
+mobile/gradle-wrapper.jar
+mobile/.gradle/
+mobile/.cxx/
+mobile/local.properties
+
+# ----------------------------------------------------------------------------
+# Isar generated code (Flutter)
+# ----------------------------------------------------------------------------
+mobile/**/*.isar.dart
+
+# ----------------------------------------------------------------------------
+# Build runner / freezed / json_serializable generated
+# ----------------------------------------------------------------------------
+mobile/**/*.g.dart
+mobile/**/*.freezed.dart
+!mobile/lib/**/fixtures/**/*.g.dart
+!mobile/lib/**/fixtures/**/*.freezed.dart
+
+# ----------------------------------------------------------------------------
+# Docker
+# ----------------------------------------------------------------------------
+docker-compose.override.yml
+.docker/
+
+# ----------------------------------------------------------------------------
+# Logs / temp
+# ----------------------------------------------------------------------------
+*.log
+logs/
+*.tmp
+*.swp
+*.swo
+*~
+
+# ----------------------------------------------------------------------------
+# Test / coverage
+# ----------------------------------------------------------------------------
+coverage/
+.nyc_output/
+htmlcov/
+
+# ----------------------------------------------------------------------------
+# Qoder local (settings.local.json is per-user; shared settings may be committed)
+# ----------------------------------------------------------------------------
+.qoder/settings.local.json
+.qoder/cache/
+.qoder/logs/

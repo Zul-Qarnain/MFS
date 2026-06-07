@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>MFS Unified | Processing</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .step-line {
+            width: 2px;
+            background: #c3c6d7;
+            position: absolute;
+            left: 27px;
+            top: 48px;
+            bottom: -16px;
+        }
+        .step-line-active {
+            background: #004ac6;
+            height: 0%;
+            transition: height 1s ease-in-out;
+        }
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-custom {
+            animation: spin-slow 2s linear infinite;
+        }
+        .pulse-subtle {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#64003e",
+                        "primary": "#004ac6",
+                        "tertiary-fixed-dim": "#ffb693",
+                        "on-tertiary-fixed-variant": "#7a3000",
+                        "tertiary-fixed": "#ffdbcb",
+                        "surface-bright": "#faf8ff",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#eef0ff",
+                        "on-tertiary-fixed": "#341000",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e2e7ff",
+                        "on-background": "#131b2e",
+                        "on-primary-container": "#eeefff",
+                        "surface-container": "#eaedff",
+                        "surface-tint": "#0053db",
+                        "secondary": "#b21474",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "tertiary-container": "#b74c00",
+                        "outline-variant": "#c3c6d7",
+                        "on-secondary-fixed": "#3d0024",
+                        "surface-container-low": "#f2f3ff",
+                        "surface": "#faf8ff",
+                        "on-primary-fixed": "#00174b",
+                        "inverse-surface": "#283044",
+                        "surface-container-highest": "#dae2fd",
+                        "background": "#faf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#434655",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "primary-container": "#2563eb",
+                        "on-surface": "#131b2e",
+                        "tertiary": "#903a00",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#ffd8e6",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#8b0059",
+                        "secondary-fixed-dim": "#ffafd1",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#dae2fd",
+                        "outline": "#737686"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xl": "32px",
+                        "margin-mobile": "20px",
+                        "base": "4px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "gutter-mobile": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-md-mobile": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "label-md": ["Geist"],
+                        "amount-display": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "amount-display": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-lg overflow-x-hidden">
+<!-- Top AppBar (from Shared Components JSON) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile h-14 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-md shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A professional studio portrait of a young man with a friendly expression, set against a soft, neutral grey background. The lighting is bright and high-key, reflecting a modern and clean corporate aesthetic. The overall mood is approachable and trustworthy, aligning with a premium financial service provider's visual identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3dga-4sfMKqYm32K9tQjDcro1gQlQWNBkmnpsOGxFBAc_ouU2sKqmU924cbLV8rDhbAVKQq_OBXhr-9H5GMy2zWEtV4QBSHJViGlUfkwGD4IhAFT2YT1y1nWVmTJ6octXgXc6oAonLMzCl1QRp3lQIavbyEAJOLYE4JA4mOcviDyQxXtG1DsDef_66CC-CNxodNEbvFBOTf0WSTfWOgCN2VX3hxBuZmdjyGGlheE5nMMlLqKcqZ24IKzDq322L_q1FiD2dU709Z1n"/>
+</div>
+<h1 class="font-display-lg text-title-lg font-bold text-primary">MFS Unified</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-primary-container/20 transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</div>
+</header>
+<main class="pt-20 pb-32 px-margin-mobile max-w-lg mx-auto min-h-screen">
+<!-- Hero Processing Card -->
+<div class="relative overflow-hidden bg-primary rounded-xl p-lg mb-xl shadow-[0px_12px_32px_rgba(0,0,0,0.05)] text-on-primary">
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+<div class="relative z-10">
+<p class="font-label-md text-label-md opacity-80 mb-base">TRANSFER IN PROGRESS</p>
+<h2 class="font-amount-display text-amount-display mb-sm">৳ 12,500.00</h2>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-white animate-pulse"></div>
+<p class="font-body-sm text-body-sm opacity-90">Securely routing through bKash gateway...</p>
+</div>
+</div>
+</div>
+<!-- Progress Timeline Section -->
+<div class="space-y-6 relative">
+<!-- Step 1 -->
+<div class="relative flex items-start gap-4">
+<div class="step-line" style="bottom: 0;">
+<div class="step-line-active" style="height: 100%;"></div>
+</div>
+<div class="z-10 w-14 h-14 flex-shrink-0 flex items-center justify-center rounded-full bg-green-500 text-white shadow-sm transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="pt-3">
+<h3 class="font-title-lg text-title-lg text-on-surface">Recipient verified</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Validated Account: +880 1712-XXXXXX</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative flex items-start gap-4">
+<div class="step-line" style="bottom: 0;">
+<div class="step-line-active" style="height: 100%;"></div>
+</div>
+<div class="z-10 w-14 h-14 flex-shrink-0 flex items-center justify-center rounded-full bg-green-500 text-white shadow-sm transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="pt-3">
+<h3 class="font-title-lg text-title-lg text-on-surface">Authentication successful</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Secure biometric verification completed</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative flex items-start gap-4">
+<div class="step-line">
+<div class="step-line-active" id="line-3" style="height: 50%;"></div>
+</div>
+<div class="z-10 w-14 h-14 flex-shrink-0 flex items-center justify-center rounded-full bg-primary-container text-white shadow-md">
+<span class="material-symbols-outlined animate-spin-custom">sync</span>
+</div>
+<div class="pt-3">
+<h3 class="font-title-lg text-title-lg text-on-surface">Launching provider workflow</h3>
+<p class="font-body-sm text-body-sm text-primary font-medium pulse-subtle">Connecting to bKash API...</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="relative flex items-start gap-4">
+<div class="step-line"></div>
+<div class="z-10 w-14 h-14 flex-shrink-0 flex items-center justify-center rounded-full bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined">pending</span>
+</div>
+<div class="pt-3">
+<h3 class="font-title-lg text-title-lg text-on-surface-variant">Processing payment</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-60">Awaiting gateway confirmation</p>
+</div>
+</div>
+<!-- Step 5 -->
+<div class="relative flex items-start gap-4">
+<div class="z-10 w-14 h-14 flex-shrink-0 flex items-center justify-center rounded-full bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<div class="pt-3">
+<h3 class="font-title-lg text-title-lg text-on-surface-variant">Transaction complete</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-60">Final receipt generation</p>
+</div>
+</div>
+</div>
+<!-- Ad/Promo Card (Bento Style) -->
+<div class="mt-12 bg-surface-container-low border border-outline-variant/30 rounded-2xl p-md flex gap-4 items-center">
+<div class="w-16 h-16 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-display-lg" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<h4 class="font-title-lg text-body-lg font-bold text-on-surface">Advanced Protection</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">This transaction is insured up to ৳ 50,000 by Unified Guard.</p>
+</div>
+</div>
+</main>
+<!-- Bottom NavBar (from Shared Components JSON) -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-md shadow-[0px_-4px_16px_rgba(0,0,0,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">qr_code_scanner</span>
+<span class="font-label-md text-label-md mt-1">Scan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">send</span>
+<span class="font-label-md text-label-md mt-1">Send</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-md text-label-md mt-1">History</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md mt-1">Profile</span>
+</a>
+</nav>
+<script>
+        // Simulate progress bar movement for the active step
+        document.addEventListener('DOMContentLoaded', () => {
+            const line = document.getElementById('line-3');
+            let height = 0;
+            const interval = setInterval(() => {
+                if (height >= 100) {
+                    height = 0;
+                } else {
+                    height += 1;
+                }
+                line.style.height = height + '%';
+            }, 30);
+
+            // Subtle interaction on scroll
+            window.addEventListener('scroll', () => {
+                const header = document.querySelector('header');
+                if (window.scrollY > 20) {
+                    header.classList.add('shadow-md');
+                } else {
+                    header.classList.remove('shadow-md');
+                }
+            });
+        });
+    </script>
+</body></html>
