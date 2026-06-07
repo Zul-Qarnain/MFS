@@ -67,27 +67,47 @@ Statuses: `✅ DONE` · `🔧 IN PROGRESS` · `⏳ TODO` · `⏸️ DEFERRED`.
 
 | # | Task | Status | Ref |
 |---|---|---|---|
-| B4.1 | `flutter create mfs_unified --platforms=android` | ⏳ TODO | BRIEF §1 |
-| B4.2 | `pubspec.yaml` — exact package list from BRIEF §3.1 | ⏳ TODO | BRIEF §3.1 |
-| B4.3 | `AndroidManifest.xml` permissions (CAMERA, BIOMETRIC, INTERNET, VIBRATE, NETWORK_STATE, RECEIVE_SMS). **Explicitly NO** `CALL_PHONE`, `READ_SMS`, `BIND_ACCESSIBILITY_SERVICE`. | ⏳ TODO | BRIEF §3.2 |
-| B4.4 | `core/constants/` — `app_colors.dart`, `app_typography.dart`, `app_constants.dart` | ⏳ TODO | BRIEF §3.3 |
-| B4.5 | `core/security/` — bcrypt wrapper, biometric prompt, device fingerprint | ⏳ TODO | SECURITY_REVIEW §3, §5 |
-| B4.6 | `core/providers/provider_integration_service.dart` + three adapters | ⏳ TODO | SYSTEM_ARCH §3 |
-| B4.7 | `data/datasources/` — remote (Retrofit), local (Isar DAOs), secure (flutter_secure_storage) | ⏳ TODO | SYSTEM_ARCH §1.3 |
-| B4.8 | `domain/` — entities, repositories (abstract), use-cases, value objects (`Money`, `PhoneNumber`, `ProviderId`) | ⏳ TODO | SYSTEM_ARCH §1.2 |
-| B4.9 | `presentation/router/` — `go_router` setup | ⏳ TODO | SYSTEM_ARCH §1.4 |
-| B4.10 | `presentation/providers/` — Riverpod notifiers (`@riverpod`) | ⏳ TODO | SYSTEM_ARCH §5 |
-| B4.11 | Screens: Home, QrScanner, PaymentDetails, Authentication, Processing, Success | ⏳ TODO | BRIEF §3.4 |
-| B4.12 | Amount formatting via `intl` (`৳1,500.00`) | ⏳ TODO | BRIEF §3.6 |
-| B4.13 | `flutter analyze` zero errors gate | ⏳ TODO | BRIEF §9 |
+| B4.1 | Flutter project manifest (`pubspec.yaml`) with Android-only platforms | ✅ DONE | BRIEF §1 |
+| B4.2 | `pubspec.yaml` — exact package list from BRIEF §3.1 | ✅ DONE | BRIEF §3.1 |
+| B4.3 | `AndroidManifest.xml` permissions — CAMERA, BIOMETRIC, INTERNET, VIBRATE, NETWORK_STATE, RECEIVE_SMS. **NO** `CALL_PHONE`, `READ_SMS`, `BIND_ACCESSIBILITY_SERVICE`. | ✅ DONE | BRIEF §3.2 |
+| B4.4 | `core/constants/` — `app_colors.dart`, `app_typography.dart`, `app_constants.dart` | ✅ DONE (B2) | BRIEF §3.3 |
+| B4.5 | `core/security/` — `pin_hasher.dart`, `biometric_service.dart`, `device_fingerprint.dart` | ✅ DONE | SECURITY_REVIEW §3, §5 |
+| B4.6 | `core/providers/` — provider integration service + 3 adapters | ✅ DONE | SYSTEM_ARCH §3 |
+| B4.7 | `data/datasources/` — remote (Retrofit), local (Isar), secure (SecureKeyValueStore) | ✅ DONE | SYSTEM_ARCH §1.3 |
+| B4.8 | `domain/` — entities (`Transaction`, `Contact`), repositories (abstract), value objects (`Money`, `PhoneNumber`, `ProviderId`) | ✅ DONE | SYSTEM_ARCH §1.2 |
+| B4.9 | `presentation/router/` — `go_router` setup | ✅ DONE | SYSTEM_ARCH §1.4 |
+| B4.10 | `presentation/providers/` — Riverpod providers (`@riverpod`) | ✅ DONE | SYSTEM_ARCH §5 |
+| B4.11 | Screens: Home, QrScanner, PaymentDetails, Authentication, Processing, Success — **placeholders only** | ✅ DONE (scaffold) | BRIEF §3.4 |
+| B4.12 | Amount formatting via `intl` (`৳1,500.00`) — `Money.format()` | ✅ DONE | BRIEF §3.6 |
+| B4.13 | `flutter analyze` zero errors gate (CI) | ✅ DONE (wired) | BRIEF §9 |
+
+---
+
+## Validation Sprint (post-scaffold)
+
+These items build real behaviour into the placeholder scaffolding.
+
+| # | Task | Status |
+|---|---|---|
+| V1 | QR Scanner Screen — camera preview via `mobile_scanner`, overlay UI | ⏳ TODO |
+| V2 | QR Parsing Logic — extract provider, phone, amount, merchant from QR payload | ⏳ TODO |
+| V3 | Provider Selection Screen — Riverpod state, tappable chip list | ⏳ TODO |
+| V4 | Authentication Screen UI — PIN keypad + biometric button + error states | ⏳ TODO |
+| V5 | Local Transaction Storage — full Isar read/write + stream to Recent Transactions | ⏳ TODO |
+| V6 | Provider Abstraction Layer — integration tests against mock adapters | ⏳ TODO |
+| V7 | Mock bKash Adapter — deterministic success/failed scenarios | ⏳ TODO |
+| V8 | Mock Nagad Adapter — same | ⏳ TODO |
+| V9 | Mock Rocket Adapter — same | ⏳ TODO |
+
+**Excluded from sprint:** AI agents, fraud detection, analytics, monitoring, USSD automation, accessibility services.
 
 ### B5 — Documentation & handover
 
 | # | Task | Status | Ref |
 |---|---|---|---|
 | B5.1 | `README.md` setup steps | ⏳ TODO | BRIEF §8.14 |
-| B5.2 | `ARCHITECTURE_DECISIONS.md` populated | 🔧 IN PROGRESS (this file) | BRIEF §7.4 |
-| B5.3 | `TASKS.md` finalized | 🔧 IN PROGRESS (this file) | BRIEF §7.3 |
+| B5.2 | `ARCHITECTURE_DECISIONS.md` populated | ✅ DONE | BRIEF §7.4 |
+| B5.3 | `TASKS.md` finalized | ✅ DONE | BRIEF §7.3 |
 
 ---
 
@@ -108,3 +128,5 @@ Statuses: `✅ DONE` · `🔧 IN PROGRESS` · `⏳ TODO` · `⏸️ DEFERRED`.
 |---|---|
 | 2026-06-07 | Phase A completed; 5 docs written. |
 | 2026-06-07 | Architecture change request: backend switched from FastAPI + SQLAlchemy to Node.js + TypeScript + Express + Prisma. `BACKEND_STACK_ANALYSIS.md`, `SYSTEM_ARCHITECTURE.md`, `SECURITY_REVIEW.md` updated. `TASKS.md` + `ARCHITECTURE_DECISIONS.md` created. |
+| 2026-06-07 | B1 (repo + infra) + B2 (design tokens) + B3 (backend scaffold) committed as `f2a09ed`. |
+| 2026-06-07 | B4 (Flutter scaffold) complete: `pubspec.yaml`, AndroidManifest, core/{network,security,errors,providers}, domain/{entities,value_objects,repositories}, data/{datasources,repositories}, presentation/{router,providers,screens}, main.dart, two unit tests. Placeholder screens await validation sprint. |
