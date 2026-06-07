@@ -89,15 +89,15 @@ These items build real behaviour into the placeholder scaffolding.
 
 | # | Task | Status |
 |---|---|---|
-| V1 | QR Scanner Screen — camera preview via `mobile_scanner`, overlay UI | ⏳ TODO |
-| V2 | QR Parsing Logic — extract provider, phone, amount, merchant from QR payload | ⏳ TODO |
-| V3 | Provider Selection Screen — Riverpod state, tappable chip list | ⏳ TODO |
-| V4 | Authentication Screen UI — PIN keypad + biometric button + error states | ⏳ TODO |
-| V5 | Local Transaction Storage — full Isar read/write + stream to Recent Transactions | ⏳ TODO |
-| V6 | Provider Abstraction Layer — integration tests against mock adapters | ⏳ TODO |
-| V7 | Mock bKash Adapter — deterministic success/failed scenarios | ⏳ TODO |
-| V8 | Mock Nagad Adapter — same | ⏳ TODO |
-| V9 | Mock Rocket Adapter — same | ⏳ TODO |
+| V1 | QR Scanner Screen — camera preview via `mobile_scanner`, overlay UI | ✅ DONE |
+| V2 | QR Parsing Logic — extract provider, phone, amount, merchant from QR payload | ✅ DONE |
+| V3 | Provider Selection Screen — Riverpod state, tappable chip list | ✅ DONE |
+| V4 | Authentication Screen UI — PIN keypad + biometric button + error states | ✅ DONE |
+| V5 | Local Transaction Storage — full Isar read/write + stream to Recent Transactions | ✅ DONE |
+| V6 | Provider Abstraction Layer — integration tests against mock adapters | ✅ DONE |
+| V7 | Mock bKash Adapter — deterministic success/failed scenarios | ✅ DONE |
+| V8 | Mock Nagad Adapter — same | ✅ DONE |
+| V9 | Mock Rocket Adapter — same | ✅ DONE |
 
 **Excluded from sprint:** AI agents, fraud detection, analytics, monitoring, USSD automation, accessibility services.
 
@@ -130,3 +130,4 @@ These items build real behaviour into the placeholder scaffolding.
 | 2026-06-07 | Architecture change request: backend switched from FastAPI + SQLAlchemy to Node.js + TypeScript + Express + Prisma. `BACKEND_STACK_ANALYSIS.md`, `SYSTEM_ARCHITECTURE.md`, `SECURITY_REVIEW.md` updated. `TASKS.md` + `ARCHITECTURE_DECISIONS.md` created. |
 | 2026-06-07 | B1 (repo + infra) + B2 (design tokens) + B3 (backend scaffold) committed as `f2a09ed`. |
 | 2026-06-07 | B4 (Flutter scaffold) complete: `pubspec.yaml`, AndroidManifest, core/{network,security,errors,providers}, domain/{entities,value_objects,repositories}, data/{datasources,repositories}, presentation/{router,providers,screens}, main.dart, two unit tests. Placeholder screens await validation sprint. |
+| 2026-06-07 | Validation sprint (V1–V9) complete: QR scanner with camera preview + overlay, QR parser (EMVCo TLV + provider URLs + plain phone), provider selection strip with Riverpod state, authentication screen (PIN keypad + biometric + confirm-PIN flow), Isar-backed transaction stream on home screen, payment details screen wired to provider strip, mock adapter tests for bKash/Nagad/Rocket (merchant + P2P + pollStatus). |

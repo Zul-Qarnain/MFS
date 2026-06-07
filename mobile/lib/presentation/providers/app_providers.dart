@@ -54,20 +54,18 @@ ProviderIntegrationService providerIntegrationService(Ref ref) => ProviderIntegr
 Future<Isar> isarClient(Ref ref) => openIsar();
 
 // -----------------------------------------------------------------------------
-// Repositories (wait for Isar via AsyncValue.whenData)
+// Repositories (wait for Isar via async providers)
 // -----------------------------------------------------------------------------
 
 @Riverpod(keepAlive: true)
-TransactionRepository transactionRepository(Ref ref) {
-  final isar = ref.watch(isarClientProvider).valueOrNull;
-  if (isar == null) throw StateError('Isar not yet open');
+Future<TransactionRepository> transactionRepository(Ref ref) async {
+  final isar = await ref.watch(isarClientProvider.future);
   return TransactionRepositoryImpl(isar);
 }
 
 @Riverpod(keepAlive: true)
-ContactRepository contactRepository(Ref ref) {
-  final isar = ref.watch(isarClientProvider).valueOrNull;
-  if (isar == null) throw StateError('Isar not yet open');
+Future<ContactRepository> contactRepository(Ref ref) async {
+  final isar = await ref.watch(isarClientProvider.future);
   return ContactRepositoryImpl(isar);
 }
 
