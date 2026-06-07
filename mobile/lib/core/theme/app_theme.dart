@@ -1,9 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
-import 'app_colors.dart';
-import 'app_typography.dart';
+import '../constants/app_colors.dart';
+import '../constants/app_typography.dart';
 
 /// App-wide [ThemeData] built from the Stitch design tokens.
 ///

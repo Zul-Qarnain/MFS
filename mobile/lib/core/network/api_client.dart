@@ -16,7 +16,7 @@ class ApiClient {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
-        )) {
+        ),) {
     _dio.interceptors.add(_correlationIdInterceptor);
     _dio.interceptors.add(_authInterceptor);
     if (kDebugLog) _dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));

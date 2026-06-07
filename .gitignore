@@ -95,6 +95,7 @@ mobile/gradle-wrapper.jar
 mobile/.gradle/
 mobile/.cxx/
 mobile/local.properties
+mobile/pubspec.lock
 
 # ----------------------------------------------------------------------------
 # Isar generated code (Flutter)

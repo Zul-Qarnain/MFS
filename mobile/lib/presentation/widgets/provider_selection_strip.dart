@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_constants.dart';
+import '../../core/constants/app_typography.dart';
 import '../../core/providers/provider_id.dart';
 import '../../domain/entities/qr_payload.dart';
+
+part 'provider_selection_strip.g.dart';
 
 /// State for the provider selection flow.
 @riverpod

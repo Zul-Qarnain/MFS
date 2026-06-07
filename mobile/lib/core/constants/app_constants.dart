@@ -1,3 +1,5 @@
+import 'package:flutter/painting.dart';
+
 /// Spacing tokens (multiples of 4 px on an 8 px baseline grid).
 class AppSpacing {
   const AppSpacing._();

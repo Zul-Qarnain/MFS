@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_constants.dart';
 import '../../core/constants/app_typography.dart';
-import '../../core/providers/provider_id.dart';
 import '../../domain/entities/qr_payload.dart';
 import '../../domain/value_objects/money.dart';
 import '../router/app_router.dart';
@@ -70,8 +69,10 @@ class _PaymentDetailsScreenState extends ConsumerState<PaymentDetailsScreen> {
             Text(_payload.merchantName!, style: AppTypography.headlineMd),
             const SizedBox(height: 4),
             if (_payload.merchantId != null)
-              Text(_payload.merchantId!,
-                  style: AppTypography.labelMd.copyWith(color: AppColors.onSurfaceVariant)),
+              Text(
+                _payload.merchantId!,
+                style: AppTypography.labelMd.copyWith(color: AppColors.onSurfaceVariant),
+              ),
             const SizedBox(height: 24),
           ],
           TextField(

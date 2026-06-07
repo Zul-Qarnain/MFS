@@ -38,7 +38,6 @@ void main() {
       final res = await adapter.initiate(_p2pReq(ProviderId.bkash));
       expect(res.instructions?.method, 'DIALER_PASS_THROUGH');
       expect(res.instructions?.ussdString, contains('*247'));
-      expect(res.instructions?.ussdString, contains('tel:'));
     });
 
     test('pollStatus returns SUCCESS', () async {

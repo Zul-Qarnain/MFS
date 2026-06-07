@@ -135,7 +135,7 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
           child: Column(
             children: [
               const Spacer(),
-              Icon(Icons.lock_outline, size: 48, color: AppColors.primary),
+              const Icon(Icons.lock_outline, size: 48, color: AppColors.primary),
               const SizedBox(height: 16),
               Text(_title, style: AppTypography.headlineMd),
               const SizedBox(height: 32),

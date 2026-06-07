@@ -45,7 +45,7 @@ class QrParser {
 
   String _normalisePhone(String s) {
     final digits = s.replaceAll(RegExp(r'\D'), '');
-    if (digits.startsWith('0')) return '+88${digits.substring(1)}';
+    if (digits.startsWith('0')) return '+880${digits.substring(1)}';
     if (digits.startsWith('880')) return '+$digits';
     return '+$digits';
   }
@@ -116,7 +116,7 @@ class QrParser {
     ProviderId? provider;
     if (additional != null) {
       final innerTlv = _readTlv(additional);
-      final hint = (innerTlv.values.join(' ') + ' ' + s).toLowerCase();
+      final hint = '${innerTlv.values.join(' ')} $s'.toLowerCase();
       if (hint.contains('bkash')) {
         provider = ProviderId.bkash;
       } else if (hint.contains('nagad')) {

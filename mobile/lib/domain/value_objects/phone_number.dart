@@ -2,19 +2,19 @@
 class PhoneNumber {
   PhoneNumber._(this._raw);
 
-  final String _raw;
-
-  static final RegExp _e164 = RegExp(r'^\+880\d{10}$');
-  static final RegExp _local = RegExp(r'^0\d{10}$');
-
   /// Parse and validate a Bangladesh phone number. Accepts `+880…` or
   /// local `0…` (auto-converted to E.164).
   factory PhoneNumber.parse(String input) {
     final trimmed = input.trim();
     if (_e164.hasMatch(trimmed)) return PhoneNumber._(trimmed);
-    if (_local.hasMatch(trimmed)) return PhoneNumber._('+88${trimmed.substring(1)}');
+    if (_local.hasMatch(trimmed)) return PhoneNumber._('+880${trimmed.substring(1)}');
     throw FormatException('Invalid Bangladesh phone number: $input');
   }
+
+  final String _raw;
+
+  static final RegExp _e164 = RegExp(r'^\+880\d{10}$');
+  static final RegExp _local = RegExp(r'^0\d{10}$');
 
   String get e164 => _raw;
 

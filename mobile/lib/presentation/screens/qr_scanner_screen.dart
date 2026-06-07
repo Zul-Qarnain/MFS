@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-import '../../core/theme/app_theme.dart';
+import '../../core/constants/app_typography.dart';
 import '../../domain/entities/qr_payload.dart';
 import '../../domain/usecases/parse_qr_code.dart';
 import '../router/app_router.dart';

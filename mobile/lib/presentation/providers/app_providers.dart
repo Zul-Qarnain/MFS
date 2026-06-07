@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../core/network/api_client.dart';
 import '../../core/providers/provider_integration_service.dart';
@@ -16,6 +17,8 @@ import '../../domain/repositories/auth_repository.dart';
 import '../../domain/repositories/contact_repository.dart';
 import '../../domain/repositories/provider_repository.dart';
 import '../../domain/repositories/transaction_repository.dart';
+
+part 'app_providers.g.dart';
 
 const String kApiBaseUrl = String.fromEnvironment(
   'MFS_API_BASE_URL',
@@ -86,8 +89,14 @@ AuthRepository authRepository(Ref ref) => AuthRepositoryImpl(
 // Auth state queries
 // -----------------------------------------------------------------------------
 
-@Riverpod
-Future<bool> isOnboarded(Ref ref) => ref.watch(authRepositoryProvider).isOnboarded();
+@riverpod
+class IsOnboarded extends _$IsOnboarded {
+  @override
+  Future<bool> build() => ref.watch(authRepositoryProvider).isOnboarded();
+}
 
-@Riverpod
-Future<bool> hasPin(Ref ref) => ref.watch(authRepositoryProvider).hasPin();
+@riverpod
+class HasPin extends _$HasPin {
+  @override
+  Future<bool> build() => ref.watch(authRepositoryProvider).hasPin();
+}

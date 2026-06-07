@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_constants.dart';
 import '../../core/constants/app_typography.dart';
-import '../../core/providers/provider_id.dart';
 import '../../domain/entities/transaction.dart';
 import '../../domain/repositories/transaction_repository.dart';
 import '../../domain/value_objects/money.dart';
@@ -67,8 +66,10 @@ class _BalanceCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Total Balance',
-              style: AppTypography.labelMd.copyWith(color: Colors.white70)),
+          Text(
+            'Total Balance',
+            style: AppTypography.labelMd.copyWith(color: Colors.white70),
+          ),
           const SizedBox(height: 8),
           Row(
             children: [
@@ -147,10 +148,14 @@ class _TransactionTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(tx.merchantName ?? tx.recipientPhone ?? tx.type,
-                    style: AppTypography.bodyLg),
-                Text('${tx.status} • ${tx.createdAt.toLocal().toString().substring(0, 16)}',
-                    style: AppTypography.labelMd.copyWith(color: AppColors.onSurfaceVariant)),
+                Text(
+                  tx.merchantName ?? tx.recipientPhone ?? tx.type,
+                  style: AppTypography.bodyLg,
+                ),
+                Text(
+                  '${tx.status} • ${tx.createdAt.toLocal().toString().substring(0, 16)}',
+                  style: AppTypography.labelMd.copyWith(color: AppColors.onSurfaceVariant),
+                ),
               ],
             ),
           ),

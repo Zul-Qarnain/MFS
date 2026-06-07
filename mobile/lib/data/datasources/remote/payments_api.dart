@@ -1,30 +1,43 @@
 import 'package:dio/dio.dart';
-import 'package:retrofit/retrofit.dart';
 
-part 'payments_api.g.dart';
+class PaymentsApi {
+  PaymentsApi(this._dio);
+  final Dio _dio;
 
-@RestApi()
-abstract class PaymentsApi {
-  factory PaymentsApi(Dio dio, {String baseUrl}) = _PaymentsApi;
+  Future<ProvidersResponse> listProviders() async {
+    final response = await _dio.get('/payments/providers');
+    return ProvidersResponse.fromJson(response.data as Map<String, dynamic>);
+  }
 
-  @GET('/payments/providers')
-  Future<ProvidersResponse> listProviders();
+  Future<InitiateResponse> initiate(Map<String, dynamic> body) async {
+    final response = await _dio.post('/payments/initiate', data: body);
+    return InitiateResponse.fromJson(response.data as Map<String, dynamic>);
+  }
 
-  @POST('/payments/initiate')
-  Future<InitiateResponse> initiate(@Body() Map<String, dynamic> body);
+  Future<StatusResponse> status(String providerTxnId) async {
+    final response = await _dio.get(
+      '/payments/status',
+      queryParameters: {'providerTxnId': providerTxnId},
+    );
+    return StatusResponse.fromJson(response.data as Map<String, dynamic>);
+  }
 
-  @GET('/payments/status')
-  Future<StatusResponse> status(@Query('providerTxnId') String providerTxnId);
-
-  @GET('/payments/receipt')
-  Future<ReceiptResponse> receipt(@Query('providerTxnId') String providerTxnId);
+  Future<ReceiptResponse> receipt(String providerTxnId) async {
+    final response = await _dio.get(
+      '/payments/receipt',
+      queryParameters: {'providerTxnId': providerTxnId},
+    );
+    return ReceiptResponse.fromJson(response.data as Map<String, dynamic>);
+  }
 }
 
 class ProvidersResponse {
   ProvidersResponse({required this.providers});
-  final List<String> providers;
+
   factory ProvidersResponse.fromJson(Map<String, dynamic> json) =>
       ProvidersResponse(providers: List<String>.from(json['providers'] as List));
+
+  final List<String> providers;
 }
 
 class InitiateResponse {
@@ -35,11 +48,6 @@ class InitiateResponse {
     this.redirectUrl,
     this.expiresAt,
   });
-  final String transactionId;
-  final String? providerTxnId;
-  final String status;
-  final String? redirectUrl;
-  final String? expiresAt;
 
   factory InitiateResponse.fromJson(Map<String, dynamic> json) => InitiateResponse(
         transactionId: json['transactionId'] as String,
@@ -48,6 +56,12 @@ class InitiateResponse {
         redirectUrl: json['redirectUrl'] as String?,
         expiresAt: json['expiresAt'] as String?,
       );
+
+  final String transactionId;
+  final String? providerTxnId;
+  final String status;
+  final String? redirectUrl;
+  final String? expiresAt;
 }
 
 class StatusResponse {
@@ -57,10 +71,6 @@ class StatusResponse {
     required this.status,
     required this.updatedAt,
   });
-  final String transactionId;
-  final String providerTxnId;
-  final String status;
-  final String updatedAt;
 
   factory StatusResponse.fromJson(Map<String, dynamic> json) => StatusResponse(
         transactionId: json['transactionId'] as String,
@@ -68,6 +78,11 @@ class StatusResponse {
         status: json['status'] as String,
         updatedAt: json['updatedAt'] as String,
       );
+
+  final String transactionId;
+  final String providerTxnId;
+  final String status;
+  final String updatedAt;
 }
 
 class ReceiptResponse {
@@ -79,12 +94,6 @@ class ReceiptResponse {
     required this.amountMinorUnits,
     required this.currency,
   });
-  final String providerTxnId;
-  final String providerId;
-  final String type;
-  final String status;
-  final int amountMinorUnits;
-  final String currency;
 
   factory ReceiptResponse.fromJson(Map<String, dynamic> json) => ReceiptResponse(
         providerTxnId: json['providerTxnId'] as String,
@@ -94,4 +103,11 @@ class ReceiptResponse {
         amountMinorUnits: json['amountMinorUnits'] as int,
         currency: json['currency'] as String,
       );
+
+  final String providerTxnId;
+  final String providerId;
+  final String type;
+  final String status;
+  final int amountMinorUnits;
+  final String currency;
 }
