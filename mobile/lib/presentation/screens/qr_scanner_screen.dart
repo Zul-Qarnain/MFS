@@ -102,7 +102,7 @@ class _MaskPainter extends CustomPainter {
       ..addRect(Rect.fromLTWH(0, 0, size.width, size.height))
       ..addRRect(RRect.fromRectAndRadius(cut, const Radius.circular(24)))
       ..fillType = PathFillType.evenOdd;
-    canvas.drawPath(path, Paint()..color = Colors.black.withOpacity(0.6));
+    canvas.drawPath(path, Paint()..color = Colors.black.withValues(alpha: 0.6));
 
     canvas.drawRRect(
       RRect.fromRectAndRadius(cut, const Radius.circular(24)),

@@ -106,7 +106,7 @@ class _ProviderTile extends StatelessWidget {
                 height: AppSize.providerAvatar - 16,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: _brand.withOpacity(isActive ? 1.0 : 0.4),
+                  color: _brand.withValues(alpha: isActive ? 1.0 : 0.4),
                 ),
                 alignment: Alignment.center,
                 child: Text(

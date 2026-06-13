@@ -48,7 +48,7 @@ class AppTheme {
         ),
         textTheme: AppTypography.textTheme,
         appBarTheme: AppBarTheme(
-          backgroundColor: AppColors.surface.withOpacity(0.8),
+          backgroundColor: AppColors.surface.withValues(alpha: 0.8),
           elevation: 0,
           scrolledUnderElevation: 0,
           centerTitle: false,
@@ -84,10 +84,10 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
           ),
-          shadowColor: Colors.black.withOpacity(0.03),
+          shadowColor: Colors.black.withValues(alpha: 0.03),
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: AppColors.surface.withOpacity(0.8),
+          backgroundColor: AppColors.surface.withValues(alpha: 0.8),
           elevation: 0,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: AppColors.primaryContainer,
