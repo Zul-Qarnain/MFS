@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
-import { ZodSchema, ZodError } from 'zod';
+import { type ZodSchema, ZodError } from 'zod';
 
 import { badRequest } from '../errors/AppError.js';
 
@@ -13,7 +13,7 @@ export function validate<T>(schema: ZodSchema<T>, source: Source = 'body') {
   return (req: Request, _res: Response, next: NextFunction): void => {
     try {
       const parsed = schema.parse(req[source]);
-      (req as Record<Source, T>)[source] = parsed;
+      (req as unknown as Record<Source, T>)[source] = parsed;
       next();
     } catch (err) {
       if (err instanceof ZodError) {

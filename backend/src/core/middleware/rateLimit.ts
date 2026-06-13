@@ -14,7 +14,7 @@ export const globalRateLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   store: new RedisStore({
-    sendCommand: async (...args: string[]) => {
+    sendCommand: (...args: string[]) => {
       const r = getRedis();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return
       return (r as any).sendCommand(args);
@@ -37,7 +37,7 @@ export const perUserRateLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   store: new RedisStore({
-    sendCommand: async (...args: string[]) => {
+    sendCommand: (...args: string[]) => {
       const r = getRedis();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return
       return (r as any).sendCommand(args);

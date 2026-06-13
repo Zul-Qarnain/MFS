@@ -16,8 +16,7 @@ export const logger = pino({
   hooks: {
     logMethod(inputArgs, method) {
       const masked = inputArgs.map((arg) => (typeof arg === 'string' ? maskPii(arg) : arg));
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return method.apply(this, masked as any);
+      return method.apply(this, masked as Parameters<typeof method>);
     },
   },
 });

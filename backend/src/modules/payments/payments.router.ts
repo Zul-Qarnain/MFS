@@ -1,12 +1,15 @@
 import { Router } from 'express';
 
-import { requireAuth } from '../../core/middleware/authMiddleware.js';
-import { validate } from '../../core/middleware/validate.js';
-import { perUserRateLimiter } from '../../core/middleware/rateLimit.js';
-
+import {
+  type PaymentRequestInput,
+  paymentRequestSchema,
+  paymentStatusQuerySchema,
+} from './payments.schema.js';
 import * as paymentsService from './payments.service.js';
-import { paymentRequestSchema, paymentStatusQuerySchema } from './payments.schema.js';
 import { listProviders } from './providers/index.js';
+import { requireAuth } from '../../core/middleware/authMiddleware.js';
+import { perUserRateLimiter } from '../../core/middleware/rateLimit.js';
+import { validate } from '../../core/middleware/validate.js';
 
 const router = Router();
 
@@ -22,7 +25,8 @@ router.post(
   validate(paymentRequestSchema),
   async (req, res, next) => {
     try {
-      const out = await paymentsService.initiate(req.userId!, req.body, req.deviceFingerprint);
+      const body: PaymentRequestInput = req.body;
+      const out = await paymentsService.initiate(req.userId!, body, req.deviceFingerprint);
       res.status(202).json(out);
     } catch (err) {
       next(err);
@@ -30,30 +34,22 @@ router.post(
   },
 );
 
-router.get(
-  '/status',
-  validate(paymentStatusQuerySchema, 'query'),
-  async (req, res, next) => {
-    try {
-      const out = await paymentsService.getStatus(req.query.providerTxnId as string);
-      res.status(200).json(out);
-    } catch (err) {
-      next(err);
-    }
-  },
-);
+router.get('/status', validate(paymentStatusQuerySchema, 'query'), async (req, res, next) => {
+  try {
+    const out = await paymentsService.getStatus(req.query.providerTxnId as string);
+    res.status(200).json(out);
+  } catch (err) {
+    next(err);
+  }
+});
 
-router.get(
-  '/receipt',
-  validate(paymentStatusQuerySchema, 'query'),
-  async (req, res, next) => {
-    try {
-      const out = await paymentsService.getReceipt(req.query.providerTxnId as string);
-      res.status(200).json(out);
-    } catch (err) {
-      next(err);
-    }
-  },
-);
+router.get('/receipt', validate(paymentStatusQuerySchema, 'query'), async (req, res, next) => {
+  try {
+    const out = await paymentsService.getReceipt(req.query.providerTxnId as string);
+    res.status(200).json(out);
+  } catch (err) {
+    next(err);
+  }
+});
 
 export default router;

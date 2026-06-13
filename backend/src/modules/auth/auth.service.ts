@@ -1,5 +1,7 @@
-import { prisma } from '../../config/prisma.js';
+import type { LoginInput, RegisterInput, SetPinInput, VerifyOtpInput } from './auth.schema.js';
 import { env } from '../../config/env.js';
+import { prisma } from '../../config/prisma.js';
+import { badRequest, unauthorized, conflict } from '../../core/errors/AppError.js';
 import { hashSecret, verifySecret } from '../../core/security/hash.js';
 import {
   signAccessToken,
@@ -7,9 +9,6 @@ import {
   verifyRefreshToken,
   type AccessTokenPayload,
 } from '../../core/security/jwt.js';
-import { badRequest, unauthorized, conflict } from '../../core/errors/AppError.js';
-
-import type { LoginInput, RegisterInput, SetPinInput, VerifyOtpInput } from './auth.schema.js';
 
 function buildOtp(): { otp: string; hash: string } {
   // The OTP is 6 digits, logged/returned to the client only through an
@@ -62,7 +61,8 @@ export async function verifyOtp(input: VerifyOtpInput) {
     throw badRequest('AUTH_OTP_EXHAUSTED', 'Too many OTP attempts');
   }
 
-  const ok = await verifySecret(input.otp, session.otpHash);
+  const otpHash: string = session.otpHash;
+  const ok = await verifySecret(input.otp, otpHash);
   await prisma.otpSession.update({
     where: { id: session.id },
     data: { attempts: { increment: 1 }, consumedAt: ok ? new Date() : null },
@@ -76,8 +76,12 @@ export async function verifyOtp(input: VerifyOtpInput) {
   // LOGIN → issue tokens
   const user = await prisma.user.findUnique({ where: { phone: session.phone } });
   if (!user) throw unauthorized('AUTH_USER_NOT_FOUND', 'No account for this phone');
-  const device = await upsertDevice(user.id, input as unknown as { deviceFingerprint: string });
-  return issueTokens(user.id, user.phone, device.id, device.fingerprint);
+  const uid: string = user.id;
+  const phone: string = user.phone;
+  const device = await upsertDevice(uid, input as unknown as { deviceFingerprint: string });
+  const did: string = device.id;
+  const fp: string = device.fingerprint;
+  return issueTokens(uid, phone, did, fp);
 }
 
 export async function createUserAfterOtp(
@@ -97,7 +101,11 @@ export async function createUserAfterOtp(
   const device = await prisma.device.create({
     data: { userId: user.id, fingerprint: deviceFingerprint, deviceName },
   });
-  return issueTokens(user.id, user.phone, device.id, device.fingerprint);
+  const uid: string = user.id;
+  const phone: string = user.phone;
+  const did: string = device.id;
+  const fp: string = device.fingerprint;
+  return issueTokens(uid, phone, did, fp);
 }
 
 export async function login(input: LoginInput) {
@@ -133,7 +141,9 @@ export async function setPin(userId: string, input: SetPinInput) {
 }
 
 async function upsertDevice(userId: string, input: { deviceFingerprint: string }) {
-  const existing = await prisma.device.findUnique({ where: { fingerprint: input.deviceFingerprint } });
+  const existing = await prisma.device.findUnique({
+    where: { fingerprint: input.deviceFingerprint },
+  });
   if (existing) {
     if (existing.userId !== userId) {
       throw badRequest('AUTH_DEVICE_BOUND_ELSEWHERE', 'This device is bound to another account');

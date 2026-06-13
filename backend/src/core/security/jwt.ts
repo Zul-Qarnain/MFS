@@ -2,7 +2,6 @@ import type { SignOptions, VerifyOptions } from 'jsonwebtoken';
 import jwt from 'jsonwebtoken';
 
 import { env } from '../../config/env.js';
-
 import { unauthorized } from '../errors/AppError.js';
 
 export interface AccessTokenPayload {

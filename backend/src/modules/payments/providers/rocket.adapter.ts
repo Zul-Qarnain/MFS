@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 
+import { mockInitiation, mockReceiptFromRequest, mockStatus } from './mock.helpers.js';
 import type {
   PaymentInitiation,
   PaymentReceipt,
@@ -7,7 +8,6 @@ import type {
   PaymentStatus,
   ProviderAdapter,
 } from './provider.interface.js';
-import { mockInitiation, mockReceiptFromRequest, mockStatus } from './mock.helpers.js';
 
 /**
  * Mock Rocket adapter.
@@ -28,28 +28,32 @@ export class RocketAdapter implements ProviderAdapter {
     return this.launchDialerPassThrough(req);
   }
 
-  async launchDialerPassThrough(req: PaymentRequest): Promise<PaymentInitiation> {
+  launchDialerPassThrough(req: PaymentRequest): Promise<PaymentInitiation> {
     const ussd = `*322*1*${req.recipientPhone ?? ''}*${Math.floor(req.amountMinorUnits / 100)}#`;
-    return mockInitiation(req, {
-      providerTxnId: `ROCKET-D-${randomUUID()}`,
-      ussdString: ussd,
-    });
+    return Promise.resolve(
+      mockInitiation(req, {
+        providerTxnId: `ROCKET-D-${randomUUID()}`,
+        ussdString: ussd,
+      }),
+    );
   }
 
-  async pollStatus(providerTxnId: string): Promise<PaymentStatus> {
-    return mockStatus(providerTxnId, 'SUCCESS');
+  pollStatus(providerTxnId: string): Promise<PaymentStatus> {
+    return Promise.resolve(mockStatus(providerTxnId, 'SUCCESS'));
   }
 
-  async fetchReceipt(providerTxnId: string): Promise<PaymentReceipt> {
-    return mockReceiptFromRequest(
-      {
-        providerId: 'rocket',
-        type: 'MERCHANT_PAYMENT',
-        amountMinorUnits: 0,
-        currency: 'BDT',
-        idempotencyKey: '',
-      },
-      providerTxnId,
+  fetchReceipt(providerTxnId: string): Promise<PaymentReceipt> {
+    return Promise.resolve(
+      mockReceiptFromRequest(
+        {
+          providerId: 'rocket',
+          type: 'MERCHANT_PAYMENT',
+          amountMinorUnits: 0,
+          currency: 'BDT',
+          idempotencyKey: '',
+        },
+        providerTxnId,
+      ),
     );
   }
 }

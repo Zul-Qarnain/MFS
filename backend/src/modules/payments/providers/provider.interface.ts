@@ -13,11 +13,7 @@
 
 export type ProviderId = 'bkash' | 'nagad' | 'rocket';
 
-export type TransactionType =
-  | 'MERCHANT_PAYMENT'
-  | 'P2P_SEND'
-  | 'CASH_OUT'
-  | 'BILL_PAY';
+export type TransactionType = 'MERCHANT_PAYMENT' | 'P2P_SEND' | 'CASH_OUT' | 'BILL_PAY';
 
 export type PaymentStatusValue =
   | 'PENDING'

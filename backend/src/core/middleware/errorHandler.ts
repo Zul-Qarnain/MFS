@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express';
 
-import { AppError } from '../errors/AppError.js';
 import { logger } from '../../utils/logger.js';
+import { AppError } from '../errors/AppError.js';
 
 /**
  * Final error handler. Must be registered AFTER all route handlers.
@@ -19,7 +19,12 @@ export function errorHandler(err: unknown, req: Request, res: Response, _next: N
 
   if (!appErr.isOperational) {
     logger.error(
-      { err, route: req.originalUrl, method: req.method, correlationId: req.headers['x-correlation-id'] },
+      {
+        err,
+        route: req.originalUrl,
+        method: req.method,
+        correlationId: req.headers['x-correlation-id'],
+      },
       'Unhandled error',
     );
   }

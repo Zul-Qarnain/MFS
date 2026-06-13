@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const phoneSchema = z
   .string()
-  .regex(/^\+?\d{10,14}$/, 'Phone must be E.164 with 10–14 digits');
+  .regex(/^\+\d{10,14}$/, 'Phone must be E.164 with 10–14 digits');
 
 export const providerIdSchema = z.enum(['bkash', 'nagad', 'rocket']);
 

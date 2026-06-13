@@ -1,12 +1,17 @@
+import type { PaymentRequestInput } from './payments.schema.js';
+import { getAdapter } from './providers/index.js';
 import { prisma } from '../../config/prisma.js';
 import { notFound } from '../../core/errors/AppError.js';
 
-import { getAdapter } from './providers/index.js';
-import type { PaymentRequestInput } from './payments.schema.js';
-
-export async function initiate(userId: string, input: PaymentRequestInput, deviceFingerprint?: string) {
+export async function initiate(
+  userId: string,
+  input: PaymentRequestInput,
+  deviceFingerprint?: string,
+) {
   // Idempotency check
-  const existingKey = await prisma.idempotencyKey.findUnique({ where: { key: input.idempotencyKey } });
+  const existingKey = await prisma.idempotencyKey.findUnique({
+    where: { key: input.idempotencyKey },
+  });
   if (existingKey) {
     return existingKey.responseBody as { providerTxnId: string; status: string };
   }

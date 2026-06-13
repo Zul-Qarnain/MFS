@@ -3,7 +3,6 @@ import type {
   PaymentReceipt,
   PaymentRequest,
   PaymentStatus,
-  ProviderAdapter,
 } from './provider.interface.js';
 
 /**
@@ -47,7 +46,7 @@ export function mockStatus(providerTxnId: string, status: PaymentStatus['status'
 }
 
 export function mockInitiation(
-  req: PaymentRequest,
+  _req: PaymentRequest,
   opts: {
     providerTxnId: string;
     ussdString?: string;

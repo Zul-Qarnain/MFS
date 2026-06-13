@@ -1,12 +1,11 @@
-import express from 'express';
 import cors from 'cors';
+import express from 'express';
 import helmet from 'helmet';
 
 import { env } from './config/env.js';
-import { globalRateLimiter } from './core/middleware/rateLimit.js';
 import { errorHandler } from './core/middleware/errorHandler.js';
+import { globalRateLimiter } from './core/middleware/rateLimit.js';
 import { requestLogger } from './core/middleware/requestLogger.js';
-
 import authRouter from './modules/auth/auth.router.js';
 import healthRouter from './modules/health/health.router.js';
 import paymentsRouter from './modules/payments/payments.router.js';
